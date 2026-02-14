@@ -5,6 +5,9 @@
 </div>
 
 
+<div style="text-align: center;">
+  <pre style="display: inline-block; font-family: monospace; line-height: 1;">
+
 ```
                                             ,'\
               _.----.        ____         ,'  _\   ___    ___     ____
@@ -63,7 +66,6 @@
 
 
 ```
-
-
-
+  </pre>
+</div>
 
