@@ -1,3 +1,9 @@
+<div style="text-align: center;">
+  <a href="https://creativecommons.org/licenses/by-nc/4.0/">
+    <img src="https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey" alt="License: CC BY-NC 4.0"/>
+  </a>
+</div>
+
 
 ```
                                             ,'\
@@ -59,4 +65,5 @@
 ```
 
 
-<div style="border:1px solid #eee; border-radius:15px; padding:20px; background-color:#f9f9f9; text-align:center;"> <h3>&copy; 2026 Git</h3> <p>Todos los derechos reservados.</p> <small>Prohibida la reproducción parcial o total sin autorización.</small> </div>
+
+
