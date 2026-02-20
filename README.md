@@ -116,7 +116,7 @@ PokemonProject/
 |---|---|---|
 | 🧑‍💻 | [LyPaw](https://github.com/LyPaw) | Dev |
 | 🧑‍💻 | [CodeDiegoF](https://github.com/CodeDiegoF) | Dev |
-| 🧑‍💻 | [EvoXgamer](https://github.com/EvoXgamer) | Dev |
+| 🧑‍💻 | [EvoXgamer](https://github.com/EvoXgamer-14) | Dev |
 | 🧑‍💻 | [FranJFM](https://github.com/FranJFM) | Dev |
 
 </div>
