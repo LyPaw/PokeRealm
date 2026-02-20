@@ -50,5 +50,9 @@ public class Pokémon {
     public String mostrarAtaques(){
         return ataques.toString();
     }
-
+     
+     public String getPs() {
+         return ps + "/" + psMax;
+     }
+     
 }

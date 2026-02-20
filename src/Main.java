@@ -72,22 +72,20 @@ public class Main {
          ArrayList<Pokémon> listaGen1 = c.getGen1();
          ArrayList<Pokémon> listaGen3 = c.getGen3();
          ArrayList<Pokémon> listaGen5 = c.getGen5();
+         for (int i = 0; i < listaGen1.size(); i++) {
+              c.mostrarEstadisticas(listaGen1, i);
+              System.out.println("=".repeat(40));
+         }
          
-        System.out.println(c.toString());
-        // Ataques 1 GEN
-        System.out.println("Ataques de Charmander " + c.AtaquesCharmander());
-        System.out.println("Ataques de Bulbasur " + c.AtaquesBulbasur());
-        System.out.println("Ataques de Squirtle" + c.AtaquesSquirtle());
-         System.out.println("=".repeat(40));
-        //Ataques 2 GEN
-         System.out.println("Ataques de Treecko " + c.AtaquesTreecko());
-         System.out.println("Ataques de Torchic " + c.AtaquesTorchic());
-         System.out.println("Ataques de Mudkip " + c.AtaquesMudkip());
-         System.out.println("=".repeat(40));
-         //Ataques 5 GEN
-         System.out.println("Ataques de Snivy " + c.AtaquesSnivy());
-         System.out.println("Ataques de Tepig " + c.AtaquesTepig());
-         System.out.println("Ataques de Oshawott " +  c.AtaquesOshawott());
+         for (int i = 0; i < listaGen3.size(); i++) {
+              c.mostrarEstadisticas(listaGen3, i);
+              System.out.println("=".repeat(40));
+         }
+         
+         for (int i = 0; i < listaGen5.size(); i++) {
+              c.mostrarEstadisticas(listaGen5, i);
+              System.out.println("=".repeat(40));
+         }
          
          
          mostrarMenu(c, sc, listaGen1, listaGen3, listaGen5);

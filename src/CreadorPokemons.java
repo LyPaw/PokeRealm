@@ -129,7 +129,7 @@ public class CreadorPokemons {
     public String AtaquesSquirtle(){
         return squirtle.mostrarAtaques();
     }
-
+    
     public String AtaquesTorchic(){return torchic.mostrarAtaques();}
     public String AtaquesTreecko(){return treecko.mostrarAtaques();}
     public String AtaquesMudkip(){return mudkip.mostrarAtaques();}
@@ -159,13 +159,23 @@ public class CreadorPokemons {
 
         return sb.toString();
     }
-
-    public void mostrarEstadisticasCharmander(){
-        System.out.println("Generacion : " + charmander.getGeneracion() +
-                "\nTipo Principal : " + charmander.getTipoPrincipal() +
-                "\nTipo Secundario : " + charmander.getTipoSecundario() +
-                "\nNombre : " + charmander.getNombre());
-    }
+     
+     public void mostrarEstadisticas(ArrayList<Pokémon> generacion, int indice) {
+          if (indice < 0 || indice >= generacion.size()) {
+               System.out.println("Índice fuera de rango.");
+               return;
+          }
+          Pokémon p = generacion.get(indice);
+          System.out.println(
+                  
+                  "Nombre       : " + p.getNombre()      + "\n" +
+                          "Generación   : " + p.getGeneracion()  + "\n" +
+                          "Tipo ppal    : " + p.getTipoPrincipal() + "\n" +
+                          "Tipo secund. : " + p.getTipoSecundario() + "\n" +
+                          "PS           : " + p.getPs() + "\n" +
+                          "Ataques      : " + p.mostrarAtaques()
+          );
+     }
 
 
 }
