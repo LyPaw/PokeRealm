@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pokédex — Proyecto Pokémon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:        #1a1a2e;
+      --surface:   #16213e;
+      --card:      #0f3460;
+      --red:       #e94560;
+      --yellow:    #f5a623;
+      --green:     #4cd964;
+      --blue:      #4fc3f7;
+      --purple:    #ce93d8;
+      --text:      #eaeaea;
+      --muted:     #7986a3;
+      --border:    #1e3a5f;
+
+      /* tipo colores */
+      --fuego:   #FF6B35;
+      --agua:    #4FC3F7;
+      --planta:  #66BB6A;
+      --veneno:  #CE93D8;
+      --normal:  #A8A878;
+      --electrico: #F7DC6F;
+      --tierra:  #E0A96D;
+      --roca:    #B8A038;
+      --bicho:   #A8B820;
+      --fantasma:#705898;
+      --acero:   #B8B8D0;
+      --hielo:   #98D8D8;
+      --lucha:   #C03028;
+      --psiquico:#F85888;
+      --dragon:  #7038F8;
+      --siniestro:#705848;
+      --hada:    #EE99AC;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Fondo animado con píxeles */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(233,69,96,0.06) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(79,195,247,0.06) 0%, transparent 40%),
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(255,255,255,0.015) 31px, rgba(255,255,255,0.015) 32px),
+        repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(255,255,255,0.015) 31px, rgba(255,255,255,0.015) 32px);
+      pointer-events: none;
+    }
+
+    /* ── HEADER ─────────────────────────────── */
+    header {
+      position: relative; z-index: 1;
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 3px solid var(--red);
+      background: linear-gradient(180deg, rgba(233,69,96,0.12) 0%, transparent 100%);
+    }
+
+    .logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(1rem, 4vw, 1.8rem);
+      color: var(--red);
+      text-shadow: 3px 3px 0 #7a1020, 0 0 30px rgba(233,69,96,0.4);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo span { color: var(--yellow); }
+
+    .subtitle {
+      font-family: 'VT323', monospace;
+      font-size: 1.3rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+    }
+
+    /* ── CONTROLES ───────────────────────────── */
+    .controls {
+      position: relative; z-index: 1;
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      justify-content: center; align-items: center;
+      padding: 1.5rem 2rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .search-box {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--card); border: 2px solid var(--border);
+      border-radius: 8px; padding: 0.5rem 1rem;
+      transition: border-color 0.2s;
+    }
+    .search-box:focus-within { border-color: var(--red); }
+    .search-box input {
+      background: none; border: none; outline: none;
+      color: var(--text); font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem; width: 200px;
+    }
+    .search-box input::placeholder { color: var(--muted); }
+
+    .filter-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .filter-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.45rem; padding: 0.5rem 0.8rem;
+      border-radius: 6px; border: 2px solid transparent;
+      cursor: pointer; transition: all 0.15s;
+      background: var(--card); color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--red); color: var(--text);
+      background: rgba(233,69,96,0.15);
+    }
+
+    .count-label {
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem; color: var(--muted);
+      margin-left: auto;
+    }
+    .count-label span { color: var(--yellow); }
+
+    /* ── GRID ────────────────────────────────── */
+    .grid {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ── CARD ────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      animation: cardIn 0.4s ease both;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: var(--red);
+      box-shadow: 0 12px 40px rgba(233,69,96,0.25), 0 0 0 1px rgba(233,69,96,0.2);
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-header {
+      padding: 1rem 1rem 0.5rem;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+
+    .card-id {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem; color: var(--muted);
+    }
+
+    .card-gen {
+      font-family: 'VT323', monospace;
+      font-size: 0.9rem; color: var(--muted);
+      background: rgba(255,255,255,0.05);
+      padding: 0.1rem 0.4rem; border-radius: 4px;
+    }
+
+    .card-img {
+      display: flex; justify-content: center; align-items: center;
+      padding: 0.5rem;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+      min-height: 110px;
+    }
+
+    .card-img img {
+      width: 90px; height: 90px;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+      transition: transform 0.3s;
+    }
+
+    .card:hover .card-img img {
+      transform: scale(1.15) translateY(-4px);
+    }
+
+    .card-body { padding: 0.8rem 1rem 1rem; }
+
+    .card-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem; color: var(--text);
+      margin-bottom: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .tipos { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+
+    .tipo-badge {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.38rem; padding: 0.3rem 0.5rem;
+      border-radius: 4px; text-transform: uppercase;
+      letter-spacing: 0.05em; font-weight: 700;
+      color: #111;
+    }
+
+    .stat-row {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 0.35rem;
+    }
+
+    .stat-label {
+      font-family: 'VT323', monospace;
+      font-size: 0.85rem; color: var(--muted);
+    }
+
+    .stat-bar-wrap {
+      flex: 1; height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px; margin: 0 0.5rem;
+      overflow: hidden;
+    }
+
+    .stat-bar {
+      height: 100%; border-radius: 3px;
+      transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .stat-value {
+      font-family: 'VT323', monospace;
+      font-size: 0.9rem; color: var(--text);
+      min-width: 22px; text-align: right;
+    }
+
+    .ataques-list {
+      margin-top: 0.6rem;
+      display: flex; flex-wrap: wrap; gap: 0.3rem;
+    }
+
+    .ataque-tag {
+      font-family: 'VT323', monospace;
+      font-size: 0.75rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 0.1rem 0.4rem;
+      color: var(--muted);
+    }
+
+    /* ── REGIÓN BANNER ───────────────────────── */
+    .region-label {
+      position: absolute; top: 0; right: 0;
+      font-family: 'VT323', monospace; font-size: 0.8rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0 10px 0 8px;
+      background: rgba(0,0,0,0.4);
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── EMPTY STATE ─────────────────────────── */
+    .empty {
+      grid-column: 1/-1; text-align: center;
+      padding: 4rem 2rem; color: var(--muted);
+    }
+    .empty .pixel { font-family: 'Press Start 2P', monospace; font-size: 0.7rem; line-height: 2; }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-family: 'VT323', monospace;
+      font-size: 1rem; color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    footer a { color: var(--red); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 600px) {
+      .grid { padding: 1rem; gap: 1rem; }
+      .controls { flex-direction: column; align-items: stretch; }
+      .count-label { margin: 0; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">POKÉDEX <span>▸</span> PROYECTO</div>
+  <div class="subtitle">// Pokémon disponibles en el juego</div>
+</header>
+
+<div class="controls">
+  <div class="search-box">
+    <span>🔍</span>
+    <input type="text" id="search" placeholder="Buscar Pokémon..."/>
+  </div>
+
+  <div class="filter-btns">
+    <button class="filter-btn active" data-filter="todos">TODOS</button>
+    <button class="filter-btn" data-filter="1">GEN I</button>
+    <button class="filter-btn" data-filter="3">GEN III</button>
+    <button class="filter-btn" data-filter="5">GEN V</button>
+    <button class="filter-btn" data-filter="fuego">🔥</button>
+    <button class="filter-btn" data-filter="agua">💧</button>
+    <button class="filter-btn" data-filter="planta">🌿</button>
+  </div>
+
+  <div class="count-label">Mostrando <span id="count">0</span> Pokémon</div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  Sprites: <a href="https://pokeapi.co" target="_blank">PokéAPI</a> &nbsp;·&nbsp;
+  Proyecto Pokémon © 2026 &nbsp;·&nbsp;
+  <a href="https://github.com/LyPaw" target="_blank">LyPaw</a> &nbsp;
+  <a href="https://github.com/CodeDiegoF" target="_blank">CodeDiegoF</a> &nbsp;
+  <a href="https://github.com/EvoXgamer" target="_blank">EvoXgamer</a> &nbsp;
+  <a href="https://github.com/FranJFM" target="_blank">FranJFM</a>
+</footer>
+
+<script>
+  const SPRITE_URL = id =>
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+
+  const TIPO_COLORS = {
+    fuego: '#FF6B35', agua: '#4FC3F7', planta: '#66BB6A',
+    veneno: '#CE93D8', normal: '#A8A878', electrico: '#F7DC6F',
+    tierra: '#E0A96D', roca: '#B8A038', bicho: '#A8B820',
+    fantasma: '#705898', acero: '#B8B8D0', hielo: '#98D8D8',
+    lucha: '#C03028', psiquico: '#F85888', dragon: '#7038F8',
+    siniestro: '#705848', hada: '#EE99AC',
+  };
+
+  const STAT_COLORS = ps =>
+    ps >= 60 ? '#4cd964' : ps >= 40 ? '#f5a623' : '#e94560';
+
+  let allPokemons = [];
+  let currentFilter = 'todos';
+  let currentSearch = '';
+
+  async function loadPokemons() {
+    try {
+      const res  = await fetch('pokemons.json');
+      allPokemons = await res.json();
+      render();
+    } catch (e) {
+      document.getElementById('grid').innerHTML =
+        '<div class="empty"><div class="pixel">Error cargando datos.<br>Asegúrate de que pokemons.json existe.</div></div>';
+    }
+  }
+
+  function render() {
+    const grid = document.getElementById('grid');
+    const q    = currentSearch.toLowerCase();
+
+    const filtered = allPokemons.filter(p => {
+      const matchSearch = p.nombre.toLowerCase().includes(q);
+      const matchFilter =
+        currentFilter === 'todos' ? true :
+        ['1','3','5'].includes(currentFilter) ? p.generacion === +currentFilter :
+        p.tipo.includes(currentFilter);
+      return matchSearch && matchFilter;
+    });
+
+    document.getElementById('count').textContent = filtered.length;
+
+    if (!filtered.length) {
+      grid.innerHTML = '<div class="empty"><div class="pixel">No se encontraron<br>Pokémon.</div></div>';
+      return;
+    }
+
+    grid.innerHTML = filtered.map((p, i) => {
+      const tiposBadges = p.tipo.map(t =>
+        `<span class="tipo-badge" style="background:${TIPO_COLORS[t] || '#888'}">${t}</span>`
+      ).join('');
+
+      const ataquesTags = (p.ataques || []).map(a =>
+        `<span class="ataque-tag">${a}</span>`
+      ).join('');
+
+      const psPercent = Math.min((p.ps / 100) * 100, 100);
+      const psColor   = STAT_COLORS(p.ps);
+
+      return `
+        <div class="card" style="animation-delay:${i * 0.05}s">
+          <div class="region-label">${p.region || ''}</div>
+          <div class="card-header">
+            <span class="card-id">#${String(p.id).padStart(3,'0')}</span>
+            <span class="card-gen">GEN ${p.generacion}</span>
+          </div>
+          <div class="card-img">
+            <img src="${SPRITE_URL(p.id)}" alt="${p.nombre}"
+                 onerror="this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png'"/>
+          </div>
+          <div class="card-body">
+            <div class="card-name">${p.nombre}</div>
+            <div class="tipos">${tiposBadges}</div>
+            <div class="stat-row">
+              <span class="stat-label">PS</span>
+              <div class="stat-bar-wrap">
+                <div class="stat-bar" style="width:${psPercent}%; background:${psColor}"></div>
+              </div>
+              <span class="stat-value">${p.ps}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">NIV</span>
+              <div class="stat-bar-wrap">
+                <div class="stat-bar" style="width:${p.nivel}%; background:#4fc3f7"></div>
+              </div>
+              <span class="stat-value">${p.nivel}</span>
+            </div>
+            <div class="ataques-list">${ataquesTags}</div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // ── Filtros ──────────────────────────────
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      render();
+    });
+  });
+
+  document.getElementById('search').addEventListener('input', e => {
+    currentSearch = e.target.value;
+    render();
+  });
+
+  loadPokemons();
+</script>
+</body>
+</html>
