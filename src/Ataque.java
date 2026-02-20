@@ -12,8 +12,8 @@ public class Ataque {
         this.tipo = tipo;
         this.potencia = potencia;
         this.precision = precision;
-        this.pp = 0;
-        this.ppMax = 0;
+        this.pp = pp;
+        this.ppMax = ppMax;
     }
 
     @Override

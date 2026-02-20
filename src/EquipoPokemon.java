@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class EquipoPokemon {
     private int Max_Equipo;
-    private ArrayList<Pokémon> PokemonList;
+    private ArrayList<Pokémon> PokemonList = new ArrayList<>();
     public EquipoPokemon(int Max_Equipo){
         this.Max_Equipo = Max_Equipo;
     }
