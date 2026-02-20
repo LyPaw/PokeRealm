@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 public class Pokémon {
 
-    int id;
-    String nombre;
-    TipoPokemon tipoPrincipal;
-    TipoPokemon tipoSecundario;
-    Generacion generacion;
-    int nivel;
-    int ps;
-    int psMax;
+    private int id;
+    private String nombre;
+    private TipoPokemon tipoPrincipal;
+    private TipoPokemon tipoSecundario;
+    private Generacion generacion;
+    private int nivel;
+    private int ps;
+    private int psMax;
     ArrayList<Ataque> ataques = new ArrayList<>();
 
 
@@ -50,5 +50,9 @@ public class Pokémon {
     public String mostrarAtaques(){
         return ataques.toString();
     }
-
+     
+     public String getPs() {
+         return ps + "/" + psMax;
+     }
+     
 }

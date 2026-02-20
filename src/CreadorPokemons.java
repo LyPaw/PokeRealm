@@ -27,24 +27,24 @@ public class CreadorPokemons {
     /**
      * Ataques
      */
-
-    //Gen1
+    
     //Normal
-    Ataque destructor = new Ataque("Destructor",TipoPokemon.NORMAL,40,100);
-    Ataque dobleBofetón = new Ataque("Doble Bofetón",TipoPokemon.NORMAL,15,85);
-    Ataque puñoCometa = new Ataque("Puño Cometa",TipoPokemon.NORMAL,18,85);
-    Ataque megaPuño = new Ataque("Mega Puño",TipoPokemon.NORMAL,40,100);
-    //Agua
-    Ataque burbuja = new Ataque("Burbuja",TipoPokemon.AGUA,40,100);
-    //Fuego
-    Ataque ascuas = new Ataque("Ascuas",TipoPokemon.FUEGO,80,100);
-    //Planta
-    Ataque drenadoras = new Ataque("Drenadoras",TipoPokemon.PLANTA,80,100);
-    Ataque latigoCepa = new Ataque("Latigo Cepa",TipoPokemon.PLANTA,80,20);
+    Ataque destructor = new Ataque("Destructor", TipoPokemon.NORMAL, 40, 100, 5, 5);
+     Ataque dobleBofeton = new Ataque("Doble Bofetón", TipoPokemon.NORMAL, 15, 85, 10, 16);
+     Ataque punoCometa = new Ataque("Puño Cometa", TipoPokemon.NORMAL, 18, 85, 15, 15);
+     Ataque megaPuno = new Ataque("Mega Puño", TipoPokemon.NORMAL, 40, 100, 20, 20);
+     
+     // Agua
+     Ataque burbuja = new Ataque("Burbuja", TipoPokemon.AGUA, 40, 100, 30, 30);
+     
+     // Fuego
+     Ataque ascuas = new Ataque("Ascuas", TipoPokemon.FUEGO, 80, 100, 25, 25);
+     
+     // Planta
+     Ataque drenadoras = new Ataque("Drenadoras", TipoPokemon.PLANTA, 80, 100, 10, 10);
+     Ataque latigoCepa = new Ataque("Latigo Cepa", TipoPokemon.PLANTA, 80, 20, 25, 25);
 
-
-
-
+     
 
     /**
      * CreacionPokemon
@@ -150,13 +150,23 @@ public class CreadorPokemons {
 
         return sb.toString();
     }
-
-    public void mostrarEstadisticasCharmander(){
-        System.out.println("Generacion : " + charmander.getGeneracion() +
-                "\nTipo Principal : " + charmander.getTipoPrincipal() +
-                "\nTipo Secundario : " + charmander.getTipoSecundario() +
-                "\nNombre : " + charmander.getNombre());
-    }
+     
+     public void mostrarEstadisticas(ArrayList<Pokémon> generacion, int indice) {
+          if (indice < 0 || indice >= generacion.size()) {
+               System.out.println("Índice fuera de rango.");
+               return;
+          }
+          Pokémon p = generacion.get(indice);
+          System.out.println(
+                  
+                  "Nombre       : " + p.getNombre()      + "\n" +
+                          "Generación   : " + p.getGeneracion()  + "\n" +
+                          "Tipo ppal    : " + p.getTipoPrincipal() + "\n" +
+                          "Tipo secund. : " + p.getTipoSecundario() + "\n" +
+                          "PS           : " + p.getPs() + "\n" +
+                          "Ataques      : " + p.mostrarAtaques()
+          );
+     }
 
 
 }

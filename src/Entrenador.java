@@ -6,8 +6,8 @@ public class Entrenador {
     private String nombre;
     private int dinero;
     private EquipoPokemon equipo;
-    private inventario Inventario;
-    private int AventurasCompletadas;
+    private Inventario inventario;
+    private int aventurasCompletadas;
     private boolean pokemonInicialElegido;
 
     public String getNombre() {
@@ -30,17 +30,17 @@ public class Entrenador {
         this.equipo = equipo;
     }
 
-    public inventario getInventario() {
-        return Inventario;
+    public Inventario getInventario() {
+        return inventario;
     }
-    public void setInventario(inventario Inventario) {
-        this.Inventario = Inventario;
+    public void setInventario(Inventario Inventario) {
+        this.inventario = Inventario;
     }
     public int getAventurasCompletadas() {
-        return AventurasCompletadas;
+        return aventurasCompletadas;
     }
     public void setAventurasCompletadas(int AventurasCompletadas) {
-        this.AventurasCompletadas = AventurasCompletadas;
+        this.aventurasCompletadas = AventurasCompletadas;
     }
     public boolean isPokemonInicialElegido() {
         return pokemonInicialElegido;
@@ -49,14 +49,13 @@ public class Entrenador {
     public void setPokemonInicialElegido(boolean pokemonInicialElegido) {
         this.pokemonInicialElegido = pokemonInicialElegido;
     }
-    public boolean ElegirPokemonInicial(Pokémon pokemon) {
-        System.out.print("¿Has escogido pokémon inicial?");
-        if (this.pokemonInicialElegido == false) {
-            return false;
-        }else  {
-            return true;
-        }
-    }
+    
+     public boolean elegirPokemonInicial(Pokémon pokemon) {
+          if (pokemonInicialElegido) return false; // ya eligió
+          equipo.getPokemonList().add(pokemon);
+          pokemonInicialElegido = true;
+          return true;
+     }
 
     /*public boolean elegirPokemonInicial(Pokémon pokemon) {
         if (pokemonInicialElegido) return false; // ya eligió

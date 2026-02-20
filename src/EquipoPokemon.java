@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class EquipoPokemon {
-    private int Max_Equipo;
-    private ArrayList<Pokémon> PokemonList;
-    public EquipoPokemon(int Max_Equipo){
-        this.Max_Equipo = Max_Equipo;
+    private int maxEquipo;
+    private ArrayList<Pokémon> PokemonList = new ArrayList<>();
+    public EquipoPokemon(int maxEquipo){
+        this.maxEquipo = maxEquipo;
     }
     private ArrayList<Pokémon> pokemonList = new ArrayList<>();
 
@@ -16,12 +16,12 @@ public class EquipoPokemon {
         PokemonList.add(pokemon);
         return PokemonList;
     }
-    public int getMax_Equipo(){
-        return Max_Equipo;
+    public int getMaxEquipo(){
+        return maxEquipo;
 
     }
-    public void setMax_Equipo(int Max_Equipo){
-        this.Max_Equipo = Max_Equipo;
+    public void setMaxEquipo(int Max_Equipo){
+        this.maxEquipo = Max_Equipo;
 
     }
 

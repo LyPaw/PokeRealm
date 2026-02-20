@@ -1,19 +1,19 @@
 public class Ataque {
-    String nombre;
-    TipoPokemon tipo;
-    int potencia;
-    int precision;
-    int pp;
-    int ppMax;
+    private String nombre;
+    private TipoPokemon tipo;
+    private int potencia;
+    private int precision;
+    private int pp;
+    private int ppMax;
 
 
-    public Ataque(String nombre, TipoPokemon tipo, int potencia, int precision) {
+    public Ataque(String nombre, TipoPokemon tipo, int potencia, int precision, int pp, int ppMax) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.potencia = potencia;
         this.precision = precision;
-        this.pp = 0;
-        this.ppMax = 0;
+        this.pp = pp;
+        this.ppMax = ppMax;
     }
 
     @Override
