@@ -7,7 +7,7 @@
     "region": "Kanto",
     "ps": 45,
     "nivel": 1,
-    "ataques": ["Látigo Cepa", "Drenadoras"]
+    "ataques": ["Látigo Cepa", "Drenadoras"],
     "stats": {"ps": 45,"ataque": 49,"defensa": 49,"atesp": 65,"defesp": 65,"velocidad": 45}
   },
   {
