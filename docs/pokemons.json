@@ -39,6 +39,16 @@
     "nivel": 1,
     "ataques": ["Burbuja"]
   },
+    {
+    "id": 8,
+    "nombre": "Squirtle",
+    "tipo": ["agua"],
+    "generacion": 1,
+    "region": "Kanto",
+    "ps": 44,
+    "nivel": 1,
+    "ataques": ["Burbuja"]
+  },
   {
     "id": 252,
     "nombre": "Treecko",
