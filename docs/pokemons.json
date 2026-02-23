@@ -16,19 +16,17 @@
     "tipo": ["fuego"],
     "generacion": 1,
     "region": "Kanto",
-    "ps": 39,
-    "nivel": 1,
-    "ataques": ["Ascuas"]
+    "ataques": ["Ascuas"],
+    "stats": {"ps": 39, "ataque": 52, "defensa": 43, "atesp": 60, "defesp": 50, "velocidad": 65}
   },
   {
     "id": 6,
-    "nombre": "Prueba",
+    "nombre": "Charizard",
     "tipo": ["fuego"],
     "generacion": 1,
     "region": "Kanto",
-    "ps": 100,
-    "nivel": 50,
-    "ataques": ["Ascuas","Lanzallamas"]
+    "ataques": ["Ascuas", "Lanzallamas"],
+    "stats": {"ps": 78, "ataque": 84, "defensa": 78, "atesp": 109, "defesp": 85, "velocidad": 100}
   },
   {
     "id": 7,
@@ -36,19 +34,17 @@
     "tipo": ["agua"],
     "generacion": 1,
     "region": "Kanto",
-    "ps": 44,
-    "nivel": 1,
-    "ataques": ["Burbuja"]
+    "ataques": ["Burbuja"],
+    "stats": {"ps": 44, "ataque": 48, "defensa": 65, "atesp": 50, "defesp": 64, "velocidad": 43}
   },
-    {
+  {
     "id": 8,
-    "nombre": "Squirtle",
+    "nombre": "Wartortle",
     "tipo": ["agua"],
     "generacion": 1,
     "region": "Kanto",
-    "ps": 44,
-    "nivel": 1,
-    "ataques": ["Burbuja"]
+    "ataques": ["Burbuja"],
+    "stats": {"ps": 59, "ataque": 63, "defensa": 80, "atesp": 65, "defesp": 80, "velocidad": 58}
   },
   {
     "id": 252,
@@ -56,9 +52,8 @@
     "tipo": ["planta"],
     "generacion": 3,
     "region": "Hoenn",
-    "ps": 40,
-    "nivel": 1,
-    "ataques": ["Látigo Cepa"]
+    "ataques": ["Látigo Cepa"],
+    "stats": {"ps": 40, "ataque": 45, "defensa": 35, "atesp": 65, "defesp": 55, "velocidad": 70}
   },
   {
     "id": 255,
@@ -66,9 +61,8 @@
     "tipo": ["fuego"],
     "generacion": 3,
     "region": "Hoenn",
-    "ps": 45,
-    "nivel": 1,
-    "ataques": ["Ascuas"]
+    "ataques": ["Ascuas"],
+    "stats": {"ps": 45, "ataque": 60, "defensa": 40, "atesp": 70, "defesp": 50, "velocidad": 45}
   },
   {
     "id": 258,
@@ -76,9 +70,8 @@
     "tipo": ["agua"],
     "generacion": 3,
     "region": "Hoenn",
-    "ps": 50,
-    "nivel": 1,
-    "ataques": ["Burbuja"]
+    "ataques": ["Burbuja"],
+    "stats": {"ps": 50, "ataque": 70, "defensa": 50, "atesp": 50, "defesp": 50, "velocidad": 40}
   },
   {
     "id": 495,
@@ -86,9 +79,8 @@
     "tipo": ["planta"],
     "generacion": 5,
     "region": "Unova",
-    "ps": 45,
-    "nivel": 1,
-    "ataques": ["Látigo Cepa"]
+    "ataques": ["Látigo Cepa"],
+    "stats": {"ps": 45, "ataque": 45, "defensa": 55, "atesp": 45, "defesp": 55, "velocidad": 63}
   },
   {
     "id": 498,
@@ -96,9 +88,8 @@
     "tipo": ["fuego"],
     "generacion": 5,
     "region": "Unova",
-    "ps": 65,
-    "nivel": 1,
-    "ataques": ["Ascuas"]
+    "ataques": ["Ascuas"],
+    "stats": {"ps": 65, "ataque": 63, "defensa": 45, "atesp": 45, "defesp": 45, "velocidad": 45}
   },
   {
     "id": 501,
@@ -106,18 +97,16 @@
     "tipo": ["agua"],
     "generacion": 5,
     "region": "Unova",
-    "ps": 55,
-    "nivel": 1,
-    "ataques": ["Burbuja"]
+    "ataques": ["Burbuja"],
+    "stats": {"ps": 55, "ataque": 55, "defensa": 45, "atesp": 63, "defesp": 45, "velocidad": 45}
   },
-   {
+  {
     "id": 724,
     "nombre": "Decidueye",
-    "tipo": ["planta","fantasma"],
+    "tipo": ["planta", "fantasma"],
     "generacion": 7,
     "region": "Alola",
-    "ps": 78,
-    "nivel": 50,
-    "ataques": ["Puntada Sombría"]
+    "ataques": ["Puntada Sombría"],
+    "stats": {"ps": 78, "ataque": 107, "defensa": 75, "atesp": 100, "defesp": 100, "velocidad": 70}
   }
 ]
