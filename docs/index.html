@@ -184,10 +184,19 @@
     .gc-controls {
       background: var(--controls-bg);
       border-bottom: 2px solid var(--border);
-      padding: 0.9rem 0.8rem;
-      display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center;
+      padding: 0.7rem 0.8rem;
+      display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
       position: relative; z-index: 1;
       transition: background 0.3s, border-color 0.3s;
+    }
+
+    .gc-filter-group {
+      display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+    }
+
+    .gc-filter-label {
+      font-family: 'Press Start 2P', monospace; font-size: 0.38rem;
+      color: var(--muted); letter-spacing: 0.1em; white-space: nowrap;
     }
 
     .gc-search {
@@ -226,6 +235,31 @@
       color: var(--accent);
       box-shadow: 0 0 8px var(--accent-glow);
     }
+
+    /* Botones de tipo con sprite imagen */
+    .gc-tipo-filter-row { display: flex; gap: 0.25rem; flex-wrap: wrap; align-items: center; }
+    .gc-tipo-btn {
+      background: var(--btn-bg);
+      border: 2px solid var(--btn-border);
+      border-radius: 2px; padding: 2px;
+      cursor: pointer; transition: all 0.15s;
+      display: flex; align-items: center; justify-content: center;
+      line-height: 0;
+    }
+    .gc-tipo-btn img {
+      width: 40px; height: auto;
+      image-rendering: pixelated;
+      opacity: 0.75;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .gc-tipo-btn:hover img { opacity: 1; }
+    .gc-tipo-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .gc-tipo-btn.active {
+      border-color: var(--accent);
+      background: var(--surface);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+    .gc-tipo-btn.active img { opacity: 1; }
 
     /* ── GRID ────────────────────────────────── */
     .gc-grid {
@@ -558,38 +592,48 @@
       color: var(--accent); letter-spacing: 0.1em;
     }
 
-    /* Stats */
-    .modal-stat { margin-bottom: 1rem; }
+    /* Stats — 6 barras estilo Bulbapedia */
+    .modal-stat { margin-bottom: 0.5rem; }
     .modal-stat-row {
-      display: flex; justify-content: space-between; align-items: baseline;
-      margin-bottom: 0.3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.2rem;
     }
     .modal-stat-lbl {
-      font-family: 'Press Start 2P', monospace; font-size: 0.42rem; color: var(--muted);
+      font-family: 'Press Start 2P', monospace; font-size: 0.37rem;
+      color: var(--muted); min-width: 55px;
     }
     .modal-stat-num {
-      font-family: 'Press Start 2P', monospace; font-size: 0.52rem;
-      color: var(--gc-green);
+      font-family: 'Press Start 2P', monospace; font-size: 0.43rem;
+      min-width: 26px; text-align: right;
     }
-    .modal-bar {
-      width: 100%; height: 10px;
+    .modal-stat-bar-wrap {
+      flex: 1; height: 9px;
       background: var(--stat-track);
       border: 1px solid var(--border); border-radius: 1px; overflow: hidden;
+      margin: 0 0.45rem;
     }
-    .modal-bar-fill {
-      height: 100%; width: 0%;
-      background: linear-gradient(90deg, var(--accent), var(--gc-teal));
-      border-radius: 1px;
+    .modal-stat-bar-fill {
+      height: 100%; width: 0%; border-radius: 1px;
       transition: width 0.65s cubic-bezier(.22,.68,0,1.2);
     }
-
-    #modal > div.modal-bar {
-      padding: 1.5em;
+    .modal-stat-bar-fill.stat-low   { background: #e05050; }
+    .modal-stat-bar-fill.stat-mid   { background: #d4a020; }
+    .modal-stat-bar-fill.stat-high  { background: #40a840; }
+    .modal-stat-bar-fill.stat-great { background: #2288CC; }
+    .modal-stat-total {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 0.45rem; margin-top: 0.25rem;
+      border-top: 1px solid var(--border);
     }
-    
+    .modal-stat-total-lbl {
+      font-family: 'Press Start 2P', monospace; font-size: 0.37rem; color: var(--muted);
+    }
+    .modal-stat-total-num {
+      font-family: 'Press Start 2P', monospace; font-size: 0.48rem; color: var(--accent);
+    }
 
     /* Ataques */
-    .modal-ataques-section { margin-top: auto; padding-top: 1rem; border-top: 2px solid var(--border); }
+    .modal-ataques-section { margin-top: 0.8rem; padding-top: 0.8rem; border-top: 2px solid var(--border); }
     .modal-ataques { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
     .modal-ataque {
       font-family: 'Press Start 2P', monospace; font-size: 0.38rem;
@@ -696,36 +740,55 @@
 </header>
 
 <div class="gc-controls">
+  <!-- Búsqueda -->
   <div class="gc-search">
     <span>🔍</span>
     <input type="text" id="search" placeholder="BUSCAR..."/>
   </div>
   <div class="gc-sep"></div>
-  <div class="gc-filter-row">
-    <button class="gc-btn active" data-filter="todos">TODOS</button>
-    <button class="gc-btn" data-filter="1">GEN I</button>
-    <button class="gc-btn" data-filter="3">GEN III</button>
-    <button class="gc-btn" data-filter="3">GEN IV</button>
-    <button class="gc-btn" data-filter="5">GEN V</button>
-    <button class="gc-btn" data-filter="3">GEN VI</button>
-    <button class="gc-btn" data-filter="3">GEN VII</button>
+
+  <!-- Filtros por generación -->
+  <div class="gc-filter-group">
+    <span class="gc-filter-label">GEN</span>
+    <div class="gc-filter-row" id="genFilters">
+      <button class="gc-btn active" data-filter="todos" data-group="gen">TODOS</button>
+      <button class="gc-btn" data-filter="gen:1" data-group="gen">I</button>
+      <button class="gc-btn" data-filter="gen:2" data-group="gen">II</button>
+      <button class="gc-btn" data-filter="gen:3" data-group="gen">III</button>
+      <button class="gc-btn" data-filter="gen:4" data-group="gen">IV</button>
+      <button class="gc-btn" data-filter="gen:5" data-group="gen">V</button>
+      <button class="gc-btn" data-filter="gen:6" data-group="gen">VI</button>
+      <button class="gc-btn" data-filter="gen:7" data-group="gen">VII</button>
+      <button class="gc-btn" data-filter="gen:8" data-group="gen">VIII</button>
+      <button class="gc-btn" data-filter="gen:9" data-group="gen">IX</button>
+    </div>
   </div>
+
   <div class="gc-sep"></div>
-  <div class="gc-filter-row"> 
-    <button class="gc-btn" data-filter="fuego">🔥</button>
-    <button class="gc-btn" data-filter="agua">💧</button>
-    <button class="gc-btn" data-filter="fantasma"><img src="https://github.com/LyPaw/PokeRealm/blob/main/docs/img/Tipo_fantasma_icono_EP.svg" alt="fantasma"></button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
-    <button class="gc-btn" data-filter="planta">🌿</button>
+
+  <!-- Filtros por tipo con sprites oficiales -->
+  <div class="gc-filter-group">
+    <span class="gc-filter-label">TIPO</span>
+    <div class="gc-filter-row gc-tipo-filter-row" id="tipoFilters">
+      <button class="gc-tipo-btn" data-filter="tipo:normal"    title="Normal">   <img src="https://images.wikidexcdn.net/mwuploads/wikidex/6/6f/latest/20170629233820/Miniatura_tipo_normal.png"    alt="Normal"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:fuego"     title="Fuego">    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/8/8a/latest/20170629233540/Miniatura_tipo_fuego.png"     alt="Fuego"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:agua"      title="Agua">     <img src="https://images.wikidexcdn.net/mwuploads/wikidex/8/8e/latest/20170629233515/Miniatura_tipo_agua.png"      alt="Agua"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:planta"    title="Planta">   <img src="https://images.wikidexcdn.net/mwuploads/wikidex/4/49/latest/20170629233614/Miniatura_tipo_planta.png"    alt="Planta"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:electrico" title="Eléctrico"><img src="https://images.wikidexcdn.net/mwuploads/wikidex/b/b8/latest/20170629233535/Miniatura_tipo_electrico.png" alt="Eléctrico"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:hielo"     title="Hielo">    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/a/ae/latest/20170629233554/Miniatura_tipo_hielo.png"     alt="Hielo"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:lucha"     title="Lucha">    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/8/85/latest/20170629233600/Miniatura_tipo_lucha.png"     alt="Lucha"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:veneno"    title="Veneno">   <img src="https://images.wikidexcdn.net/mwuploads/wikidex/3/32/latest/20170629233700/Miniatura_tipo_veneno.png"    alt="Veneno"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:tierra"    title="Tierra">   <img src="https://images.wikidexcdn.net/mwuploads/wikidex/7/72/latest/20170629233653/Miniatura_tipo_tierra.png"    alt="Tierra"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:volador"   title="Volador">  <img src="https://images.wikidexcdn.net/mwuploads/wikidex/c/c5/latest/20170629233712/Miniatura_tipo_volador.png"   alt="Volador"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:psiquico"  title="Psíquico"> <img src="https://images.wikidexcdn.net/mwuploads/wikidex/5/54/latest/20170629233628/Miniatura_tipo_psiquico.png"  alt="Psíquico"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:bicho"     title="Bicho">    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/e/e2/latest/20170629233520/Miniatura_tipo_bicho.png"     alt="Bicho"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:roca"      title="Roca">     <img src="https://images.wikidexcdn.net/mwuploads/wikidex/a/ae/latest/20170629233633/Miniatura_tipo_roca.png"      alt="Roca"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:fantasma"  title="Fantasma"> <img src="https://images.wikidexcdn.net/mwuploads/wikidex/2/2f/latest/20170629233546/Miniatura_tipo_fantasma.png"  alt="Fantasma"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:dragon"    title="Dragón">   <img src="https://images.wikidexcdn.net/mwuploads/wikidex/a/a6/latest/20170629233530/Miniatura_tipo_dragon.png"    alt="Dragón"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:siniestro" title="Siniestro"><img src="https://images.wikidexcdn.net/mwuploads/wikidex/4/40/latest/20170629233640/Miniatura_tipo_siniestro.png" alt="Siniestro"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:acero"     title="Acero">    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/0/04/latest/20170629233508/Miniatura_tipo_acero.png"     alt="Acero"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:hada"      title="Hada">     <img src="https://images.wikidexcdn.net/mwuploads/wikidex/0/00/latest/20170629233548/Miniatura_tipo_hada.png"      alt="Hada"></button>
+    </div>
   </div>
 </div>
 
@@ -794,22 +857,10 @@
           <div class="modal-stats-panel">
             <div class="modal-section-hdr">
               <div class="modal-section-dot"></div>
-              <span class="modal-section-title">ESTADÍSTICAS</span>
+              <span class="modal-section-title">ESTADÍSTICAS BASE</span>
             </div>
-            <div class="modal-stat">
-              <div class="modal-stat-row">
-                <span class="modal-stat-lbl">PS</span>
-                <span class="modal-stat-num" id="modalPs"></span>
-              </div>
-              <div class="modal-bar"><div class="modal-bar-fill" id="modalPsBar"></div></div>
-            </div>
-            <div class="modal-stat">
-              <div class="modal-stat-row">
-                <span class="modal-stat-lbl">NIVEL</span>
-                <span class="modal-stat-num" id="modalNivel"></span>
-              </div>
-              <div class="modal-bar"><div class="modal-bar-fill" id="modalNivelBar"></div></div>
-            </div>
+            <!-- 6 stats se renderizan dinámicamente -->
+            <div id="modalStats"></div>
             <div class="modal-ataques-section">
               <div class="modal-section-hdr" style="margin-bottom:0.5rem">
                 <div class="modal-section-dot"></div>
@@ -949,10 +1000,16 @@
 
     const filtered = allPokemons.filter(p => {
       const matchSearch = p.nombre.toLowerCase().includes(q);
-      const matchFilter =
-        currentFilter === 'todos' ? true :
-        ['1','3','5'].includes(currentFilter) ? p.generacion === +currentFilter :
-        p.tipo.includes(currentFilter);
+      let matchFilter = true;
+      if (currentFilter !== 'todos') {
+        if (currentFilter.startsWith('gen:')) {
+          const gen = parseInt(currentFilter.split(':')[1]);
+          matchFilter = p.generacion === gen;
+        } else if (currentFilter.startsWith('tipo:')) {
+          const tipo = currentFilter.split(':')[1];
+          matchFilter = p.tipo.includes(tipo);
+        }
+      }
       return matchSearch && matchFilter;
     });
 
@@ -972,6 +1029,9 @@
         `<span class="gc-ataque">${a}</span>`
       ).join('');
 
+      const psVal  = p.stats ? p.stats.ps        : (p.ps    || 0);
+      const velVal = p.stats ? p.stats.velocidad  : (p.nivel || 0);
+
       return `
         <div class="gc-card" style="animation-delay:${i * 0.04}s" onclick="openModal(${p.id})">
           <div class="gc-card-bar">
@@ -989,16 +1049,16 @@
             <div class="gc-stat">
               <div class="gc-stat-row">
                 <span class="gc-stat-lbl">PS</span>
-                <span class="gc-stat-num">${p.ps}</span>
+                <span class="gc-stat-num">${psVal}</span>
               </div>
-              <div class="gc-bar"><div class="gc-bar-fill" style="width:${Math.min(p.ps,100)}%"></div></div>
+              <div class="gc-bar"><div class="gc-bar-fill" style="width:${Math.min((psVal/255)*100,100)}%"></div></div>
             </div>
             <div class="gc-stat">
               <div class="gc-stat-row">
-                <span class="gc-stat-lbl">NIV</span>
-                <span class="gc-stat-num">${p.nivel}</span>
+                <span class="gc-stat-lbl">VEL</span>
+                <span class="gc-stat-num">${velVal}</span>
               </div>
-              <div class="gc-bar"><div class="gc-bar-fill" style="width:${Math.min(p.nivel,100)}%"></div></div>
+              <div class="gc-bar"><div class="gc-bar-fill" style="width:${Math.min((velVal/255)*100,100)}%"></div></div>
             </div>
             <div class="gc-ataques">${ataquesTags}</div>
           </div>
@@ -1007,11 +1067,33 @@
     }).join('');
   }
 
+  // ── Event listeners de filtros ───────────────
   document.querySelectorAll('.gc-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      // Desactivar todos los botones de gen
       document.querySelectorAll('.gc-btn').forEach(b => b.classList.remove('active'));
+      // Desactivar todos los botones de tipo
+      document.querySelectorAll('.gc-tipo-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentFilter = btn.dataset.filter;
+      render();
+    });
+  });
+
+  document.querySelectorAll('.gc-tipo-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wasActive = btn.classList.contains('active');
+      // Desactivar todo
+      document.querySelectorAll('.gc-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.gc-tipo-btn').forEach(b => b.classList.remove('active'));
+      if (wasActive) {
+        // Toggle off: volver a TODOS
+        document.querySelector('.gc-btn[data-filter="todos"]').classList.add('active');
+        currentFilter = 'todos';
+      } else {
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+      }
       render();
     });
   });
@@ -1141,6 +1223,47 @@
     ],
   };
 
+  // ── Stats helpers ─────────────────────────────
+  const MAX_STAT = 255;
+  const STAT_LABELS = {
+    ps:'PS', ataque:'ATAQUE', defensa:'DEFENSA',
+    atesp:'AT.ESP', defesp:'DEF.ESP', velocidad:'VELOCIDAD'
+  };
+  function getStatClass(v) {
+    if (v < 50)  return 'stat-low';
+    if (v < 80)  return 'stat-mid';
+    if (v < 110) return 'stat-high';
+    return 'stat-great';
+  }
+  function getStatNumColor(v) {
+    if (v < 50)  return '#e05050';
+    if (v < 80)  return '#d4a020';
+    if (v < 110) return '#40a840';
+    return '#2288CC';
+  }
+  function renderStats(stats) {
+    const c = document.getElementById('modalStats');
+    if (!stats) { c.innerHTML = '<div style="color:var(--muted);font-family:\'Press Start 2P\',monospace;font-size:0.38rem;padding:0.5rem 0">SIN DATOS</div>'; return; }
+    const total = Object.values(stats).reduce((a,b)=>a+b,0);
+    c.innerHTML = Object.entries(stats).map(([k,v]) => `
+      <div class="modal-stat">
+        <div class="modal-stat-row">
+          <span class="modal-stat-lbl">${STAT_LABELS[k]||k.toUpperCase()}</span>
+          <div class="modal-stat-bar-wrap">
+            <div class="modal-stat-bar-fill ${getStatClass(v)}" data-target="${Math.min((v/MAX_STAT)*100,100).toFixed(1)}%" style="width:0%"></div>
+          </div>
+          <span class="modal-stat-num" style="color:${getStatNumColor(v)}">${v}</span>
+        </div>
+      </div>`).join('') +
+      `<div class="modal-stat-total">
+        <span class="modal-stat-total-lbl">TOTAL</span>
+        <span class="modal-stat-total-num">${total}</span>
+      </div>`;
+    setTimeout(() => {
+      c.querySelectorAll('.modal-stat-bar-fill').forEach(b => b.style.width = b.dataset.target);
+    }, 80);
+  }
+
   // ── Modal ─────────────────────────────────────
   let currentModalId = null;
 
@@ -1162,16 +1285,11 @@
     document.getElementById('modalNum').textContent = `NO.${String(p.id).padStart(3,'0')}`;
     document.getElementById('modalName').textContent = p.nombre;
     document.getElementById('modalNameNum').textContent = `NO.${String(p.id).padStart(3,'0')}`;
-    document.getElementById('modalPs').textContent = p.ps;
-    document.getElementById('modalNivel').textContent = p.nivel;
     document.getElementById('modalRegion').textContent = p.region || '—';
     document.getElementById('modalGen').textContent = `GEN ${p.generacion}`;
 
-    // Habilidad desde datos (placeholder si no existe)
-    //const hab = p.habilidad || null;
-    //const habEl = document.getElementById('modalHabilidad');
-    //habEl.textContent = hab || '???';
-    //habEl.className = 'modal-ficha-val' + (hab ? '' : ' placeholder-dim');
+    // 6 stats
+    renderStats(p.stats || null);
 
     // Perfil desde PERFILES[id] o placeholders
     const perf = PERFILES[p.id] || {};
@@ -1184,12 +1302,6 @@
     setField('modalPeso',        perf.peso,        'Pendiente de añadir');
     setField('modalEspecie',     perf.especie,     'Pendiente de añadir');
     setField('modalDescripcion', perf.descripcion, 'Sin descripción registrada todavía.');
-
-    // Animar barras
-    setTimeout(() => {
-      document.getElementById('modalPsBar').style.width = Math.min(p.ps, 100) + '%';
-      document.getElementById('modalNivelBar').style.width = Math.min(p.nivel, 100) + '%';
-    }, 80);
 
     // Tipos
     document.getElementById('modalTipos').innerHTML = p.tipo.map(t =>
