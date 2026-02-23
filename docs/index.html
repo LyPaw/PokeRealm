@@ -236,30 +236,36 @@
       box-shadow: 0 0 8px var(--accent-glow);
     }
 
-    /* Botones de tipo con sprite imagen */
-    .gc-tipo-filter-row { display: flex; gap: 0.25rem; flex-wrap: wrap; align-items: center; }
+    /* Botones de tipo — badges CSS con colores oficiales */
+    .gc-tipo-filter-row { display: flex; gap: 0.3rem; flex-wrap: wrap; align-items: center; }
     .gc-tipo-btn {
-      background: var(--btn-bg);
-      border: 2px solid var(--btn-border);
-      border-radius: 2px; padding: 2px;
+      background: var(--tc, #888);
+      border: 2px solid transparent;
+      border-radius: 2px; padding: 0.28rem 0.55rem;
       cursor: pointer; transition: all 0.15s;
       display: flex; align-items: center; justify-content: center;
-      line-height: 0;
+      filter: brightness(0.82) saturate(0.9);
     }
-    .gc-tipo-btn img {
-      width: 40px; height: auto;
-      image-rendering: pixelated;
-      opacity: 0.75;
-      transition: opacity 0.15s, transform 0.15s;
+    .gc-tipo-btn span {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.36rem;
+      color: #fff;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+      letter-spacing: 0.03em;
+      white-space: nowrap;
     }
-    .gc-tipo-btn:hover img { opacity: 1; }
-    .gc-tipo-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .gc-tipo-btn:hover {
+      filter: brightness(1) saturate(1.1);
+      border-color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    }
     .gc-tipo-btn.active {
-      border-color: var(--accent);
-      background: var(--surface);
-      box-shadow: 0 0 8px var(--accent-glow);
+      filter: brightness(1) saturate(1.2);
+      border-color: #fff;
+      box-shadow: 0 0 0 1px var(--tc), 0 0 10px var(--tc);
+      transform: translateY(-1px);
     }
-    .gc-tipo-btn.active img { opacity: 1; }
 
     /* ── GRID ────────────────────────────────── */
     .gc-grid {
@@ -752,28 +758,28 @@
 
   <div class="gc-sep"></div>
 
-  <!-- Filtros por tipo con sprites oficiales -->
+  <!-- Filtros por tipo con badges CSS estilo oficial -->
   <div class="gc-filter-group">
     <span class="gc-filter-label">TIPO</span>
     <div class="gc-filter-row gc-tipo-filter-row" id="tipoFilters">
-      <button class="gc-tipo-btn" data-filter="tipo:normal"    title="Normal">   <img src="https://images.wikidexcdn.net/mwuploads/wikidex/6/6f/latest/20170629233820/Miniatura_tipo_normal.png"    alt="Normal"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:fuego"     title="Fuego">    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/8/8a/latest/20170629233540/Miniatura_tipo_fuego.png"     alt="Fuego"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:agua"      title="Agua">     <img src="https://images.wikidexcdn.net/mwuploads/wikidex/8/8e/latest/20170629233515/Miniatura_tipo_agua.png"      alt="Agua"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:planta"    title="Planta">   <img src="https://images.wikidexcdn.net/mwuploads/wikidex/4/49/latest/20170629233614/Miniatura_tipo_planta.png"    alt="Planta"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:electrico" title="Eléctrico"><img src="https://images.wikidexcdn.net/mwuploads/wikidex/b/b8/latest/20170629233535/Miniatura_tipo_electrico.png" alt="Eléctrico"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:hielo"     title="Hielo">    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/a/ae/latest/20170629233554/Miniatura_tipo_hielo.png"     alt="Hielo"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:lucha"     title="Lucha">    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/8/85/latest/20170629233600/Miniatura_tipo_lucha.png"     alt="Lucha"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:veneno"    title="Veneno">   <img src="https://images.wikidexcdn.net/mwuploads/wikidex/3/32/latest/20170629233700/Miniatura_tipo_veneno.png"    alt="Veneno"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:tierra"    title="Tierra">   <img src="https://images.wikidexcdn.net/mwuploads/wikidex/7/72/latest/20170629233653/Miniatura_tipo_tierra.png"    alt="Tierra"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:volador"   title="Volador">  <img src="https://images.wikidexcdn.net/mwuploads/wikidex/c/c5/latest/20170629233712/Miniatura_tipo_volador.png"   alt="Volador"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:psiquico"  title="Psíquico"> <img src="https://images.wikidexcdn.net/mwuploads/wikidex/5/54/latest/20170629233628/Miniatura_tipo_psiquico.png"  alt="Psíquico"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:bicho"     title="Bicho">    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/e/e2/latest/20170629233520/Miniatura_tipo_bicho.png"     alt="Bicho"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:roca"      title="Roca">     <img src="https://images.wikidexcdn.net/mwuploads/wikidex/a/ae/latest/20170629233633/Miniatura_tipo_roca.png"      alt="Roca"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:fantasma"  title="Fantasma"> <img src="https://images.wikidexcdn.net/mwuploads/wikidex/2/2f/latest/20170629233546/Miniatura_tipo_fantasma.png"  alt="Fantasma"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:dragon"    title="Dragón">   <img src="https://images.wikidexcdn.net/mwuploads/wikidex/a/a6/latest/20170629233530/Miniatura_tipo_dragon.png"    alt="Dragón"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:siniestro" title="Siniestro"><img src="https://images.wikidexcdn.net/mwuploads/wikidex/4/40/latest/20170629233640/Miniatura_tipo_siniestro.png" alt="Siniestro"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:acero"     title="Acero">    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/0/04/latest/20170629233508/Miniatura_tipo_acero.png"     alt="Acero"></button>
-      <button class="gc-tipo-btn" data-filter="tipo:hada"      title="Hada">     <img src="https://images.wikidexcdn.net/mwuploads/wikidex/0/00/latest/20170629233548/Miniatura_tipo_hada.png"      alt="Hada"></button>
+      <button class="gc-tipo-btn" data-filter="tipo:normal"    style="--tc:#9FA19F"><span>NORMAL</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:fuego"     style="--tc:#E62829"><span>FUEGO</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:agua"      style="--tc:#2980EF"><span>AGUA</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:planta"    style="--tc:#3FA129"><span>PLANTA</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:electrico" style="--tc:#FAC000"><span>ELÉCT.</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:hielo"     style="--tc:#3DCEF3"><span>HIELO</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:lucha"     style="--tc:#FF8000"><span>LUCHA</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:veneno"    style="--tc:#9141CB"><span>VENENO</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:tierra"    style="--tc:#915121"><span>TIERRA</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:volador"   style="--tc:#81B9EF"><span>VOLAD.</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:psiquico"  style="--tc:#EF4179"><span>PSÍQ.</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:bicho"     style="--tc:#91A119"><span>BICHO</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:roca"      style="--tc:#AFA981"><span>ROCA</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:fantasma"  style="--tc:#704170"><span>FANT.</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:dragon"    style="--tc:#5060E1"><span>DRAGÓN</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:siniestro" style="--tc:#624D4E"><span>SINIST.</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:acero"     style="--tc:#60A1B8"><span>ACERO</span></button>
+      <button class="gc-tipo-btn" data-filter="tipo:hada"      style="--tc:#EF70EF"><span>HADA</span></button>
     </div>
   </div>
 </div>
