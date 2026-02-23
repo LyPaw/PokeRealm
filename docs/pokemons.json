@@ -112,7 +112,7 @@
    {
     "id": 724,
     "nombre": "Decidueye",
-    "tipo": ["Planta","Fantasma"],
+    "tipo": ["planta","fantasma"],
     "generacion": 7,
     "region": "Alola",
     "ps": 78,
