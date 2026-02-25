@@ -133,7 +133,7 @@
     "tipo": ["dragón", "tierra"],
     "generacion": 4,
     "region": "Sinnoh",
-    "ataques": ["Dragalga", "Terremoto"],
+    "ataques": ["Garra dragón", "Terremoto"],
     "stats": {"ps": 108, "ataque": 130, "defensa": 95, "atesp": 80, "defesp": 85, "velocidad": 102}
   },
   {
@@ -181,6 +181,15 @@
     "ataques": ["Ala de Acero", "Pico Taladro"],
     "stats": {"ps": 75, "ataque": 140, "defensa": 65, "atesp": 112, "defesp": 65, "velocidad": 110}
   },
+  {
+  "id": 612,
+  "nombre": "Haxorus",
+  "tipo": ["dragón"],
+  "generacion": 5,
+  "region": "Unova",
+  "ataques": ["Danza Dragón", "Enfado"],
+  "stats": {"ps": 76, "ataque": 147, "defensa": 90, "atesp": 60, "defesp": 70,"velocidad": 97}
+  }, 
   {
     "id": 724,
     "nombre": "Decidueye",
