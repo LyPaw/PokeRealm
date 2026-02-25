@@ -99,14 +99,10 @@ PokemonProject/
 ---
 
 ## 👾 Pokémon disponibles
+![demo](https://raw.githubusercontent.com/LyPaw/PokeRealm/fcf1553396862e889fb2f1be15b6ad2e09bbe1a6/docs/spriteV/charizard.gif)
 
-| Generación | Pokémon |
-|---|---|
-| Gen 1 | Bulbasaur 🌿 · Charmander 🔥 · Squirtle 💧 |
-| Gen 3 | Treecko 🌿 · Torchic 🔥 · Mudkip 💧 |
-| Gen 5 | Snivy 🌿 · Tepig 🔥 · Oshawott 💧 |
 
-> 🌐 Consulta la [Pokédex web](https://LyPaw.github.io/PokeRealm) para verlos con sprites.
+> 🌐 Consulta la [Pokédex web](https://LyPaw.github.io/PokeRealm) para ver los datos.
 
 ---
 
