@@ -144,6 +144,13 @@ PokemonProject/
     </a><br>
     <sub>Dev</sub>
   </td>
+  <td align="center">
+    <a href="https://github.com/Adrian190907">
+      <img src="https://github.com/Adrian190907.png?size=100" width="80" style="border-radius:50%"/><br>
+      <sub><b>FranJFM</b></sub>
+    </a><br>
+    <sub>Dev</sub>
+  </td>
 </tr>
 </table>
 </div>
