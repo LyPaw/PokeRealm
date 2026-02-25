@@ -114,14 +114,38 @@ PokemonProject/
 ## 👥 Equipo
 
 <div align="center">
-
-| | Usuario | Rol |
-|---|---|---|
-| 🧑‍💻 | [LyPaw](https://github.com/LyPaw) | Dev |
-| 🧑‍💻 | [CodeDiegoF](https://github.com/CodeDiegoF) | Dev |
-| 🧑‍💻 | [EvoXgamer](https://github.com/EvoXgamer-14) | Dev |
-| 🧑‍💻 | [FranJFM](https://github.com/FranJFM) | Dev |
-
+<table>
+<tr>
+  <td align="center">
+    <a href="https://github.com/LyPaw">
+      <img src="https://github.com/LyPaw.png?size=100" width="80" style="border-radius:50%"/><br>
+      <sub><b>LyPaw</b></sub>
+    </a><br>
+    <sub>Dev</sub>
+  </td>
+  <td align="center">
+    <a href="https://github.com/CodeDiegoF">
+      <img src="https://github.com/CodeDiegoF.png?size=100" width="80" style="border-radius:50%"/><br>
+      <sub><b>CodeDiegoF</b></sub>
+    </a><br>
+    <sub>Dev</sub>
+  </td>
+  <td align="center">
+    <a href="https://github.com/EvoXgamer-14">
+      <img src="https://github.com/EvoXgamer-14.png?size=100" width="80" style="border-radius:50%"/><br>
+      <sub><b>EvoXgamer</b></sub>
+    </a><br>
+    <sub>Dev</sub>
+  </td>
+  <td align="center">
+    <a href="https://github.com/FranJFM">
+      <img src="https://github.com/FranJFM.png?size=100" width="80" style="border-radius:50%"/><br>
+      <sub><b>FranJFM</b></sub>
+    </a><br>
+    <sub>Dev</sub>
+  </td>
+</tr>
+</table>
 </div>
 
 ---
