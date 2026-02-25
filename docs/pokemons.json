@@ -47,6 +47,33 @@
     "stats": {"ps": 59, "ataque": 63, "defensa": 80, "atesp": 65, "defesp": 80, "velocidad": 58}
   },
   {
+    "id": 94,
+    "nombre": "Gengar",
+    "tipo": ["fantasma", "veneno"],
+    "generacion": 1,
+    "region": "Kanto",
+    "ataques": ["Lengüetazo", "Bola Sombra"],
+    "stats": {"ps": 60, "ataque": 65, "defensa": 60, "atesp": 130, "defesp": 75, "velocidad": 110}
+  },
+  {
+    "id": 132,
+    "nombre": "Ditto",
+    "tipo": ["normal"],
+    "generacion": 1,
+    "region": "Kanto",
+    "ataques": ["Transformación"],
+    "stats": {"ps": 48, "ataque": 48, "defensa": 48, "atesp": 48, "defesp": 48, "velocidad": 48}
+  },
+  {
+    "id": 133,
+    "nombre": "Eevee",
+    "tipo": ["normal"],
+    "generacion": 1,
+    "region": "Kanto",
+    "ataques": ["Placaje", "Gruñido"],
+    "stats": {"ps": 55, "ataque": 55, "defensa": 50, "atesp": 45, "defesp": 65, "velocidad": 55}
+  },
+  {
     "id": 252,
     "nombre": "Treecko",
     "tipo": ["planta"],
@@ -74,6 +101,42 @@
     "stats": {"ps": 50, "ataque": 70, "defensa": 50, "atesp": 50, "defesp": 50, "velocidad": 40}
   },
   {
+    "id": 289,
+    "nombre": "Slaking",
+    "tipo": ["normal"],
+    "generacion": 3,
+    "region": "Hoenn",
+    "ataques": ["Golpe Cuerpo", "Bostezo"],
+    "stats": {"ps": 150, "ataque": 160, "defensa": 100, "atesp": 95, "defesp": 65, "velocidad": 100}
+  },
+  {
+    "id": 306,
+    "nombre": "Aggron",
+    "tipo": ["acero", "roca"],
+    "generacion": 3,
+    "region": "Hoenn",
+    "ataques": ["Golpe Roca", "Cabezazo de Hierro"],
+    "stats": {"ps": 70, "ataque": 110, "defensa": 180, "atesp": 60, "defesp": 60, "velocidad": 50}
+  },
+  {
+    "id": 399,
+    "nombre": "Bidoof",
+    "tipo": ["normal"],
+    "generacion": 4,
+    "region": "Sinnoh",
+    "ataques": ["Placaje", "Gruñido"],
+    "stats": {"ps": 59, "ataque": 45, "defensa": 40, "atesp": 35, "defesp": 40, "velocidad": 31}
+  },
+  {
+    "id": 445,
+    "nombre": "Garchomp",
+    "tipo": ["dragón", "tierra"],
+    "generacion": 4,
+    "region": "Sinnoh",
+    "ataques": ["Dragalga", "Terremoto"],
+    "stats": {"ps": 108, "ataque": 130, "defensa": 95, "atesp": 80, "defesp": 85, "velocidad": 102}
+  },
+  {
     "id": 495,
     "nombre": "Snivy",
     "tipo": ["planta"],
@@ -99,6 +162,24 @@
     "region": "Unova",
     "ataques": ["Burbuja"],
     "stats": {"ps": 55, "ataque": 55, "defensa": 45, "atesp": 63, "defesp": 45, "velocidad": 45}
+  },
+  {
+    "id": 559,
+    "nombre": "Scraggy",
+    "tipo": ["siniestro", "lucha"],
+    "generacion": 5,
+    "region": "Unova",
+    "ataques": ["Placaje", "Mordisco"],
+    "stats": {"ps": 50, "ataque": 75, "defensa": 70, "atesp": 35, "defesp": 70, "velocidad": 48}
+  },
+  {
+    "id": 567,
+    "nombre": "Archeops",
+    "tipo": ["roca", "volador"],
+    "generacion": 5,
+    "region": "Unova",
+    "ataques": ["Ala de Acero", "Pico Taladro"],
+    "stats": {"ps": 75, "ataque": 140, "defensa": 65, "atesp": 112, "defesp": 65, "velocidad": 110}
   },
   {
     "id": 724,
