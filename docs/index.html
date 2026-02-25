@@ -330,7 +330,8 @@
       position: relative;
     }
     .gc-card-img img {
-      width: 110px; height: 110px;
+      width: 96px; height: 96px;
+      object-fit: contain;
       image-rendering: pixelated; image-rendering: crisp-edges;
       filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
       transition: transform 0.2s;
@@ -503,6 +504,7 @@
     }
     .modal-sprite {
       width: 170px; height: 170px;
+      object-fit: contain;
       image-rendering: pixelated; image-rendering: crisp-edges;
       filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5));
       transition: transform 0.3s;
@@ -702,7 +704,7 @@
       .modal-left { border-right: none; border-bottom: 3px solid var(--border-mid); }
       .modal-right-grid { grid-template-columns: 1fr; }
       .modal-stats-panel { border-right: none; border-bottom: 2px solid var(--border); }
-      .modal-sprite { width: 130px; height: 130px; }
+      .modal-sprite { width: 130px; height: 130px; object-fit: contain; }
     }
   </style>
 </head>
@@ -944,11 +946,56 @@
     if (saved === 'dark') document.getElementById('themeToggle').textContent = '◑ TEMA';
   }
 
-  const SPRITE_GIF = id =>
+  // Mapa id → nombre-showdown (minúsculas, sin tildes, formato Showdown)
+  const SHOWDOWN_NAMES = {
+    1: 'bulbasaur', 4: 'charmander', 6: 'charizard',
+    7: 'squirtle', 8: 'wartortle', 94: 'gengar',
+    132: 'ditto', 133: 'eevee',
+    252: 'treecko', 255: 'torchic', 258: 'mudkip',
+    289: 'slaking', 306: 'aggron',
+    399: 'bidoof', 445: 'garchomp',
+    495: 'snivy', 498: 'tepig', 501: 'oshawott',
+    559: 'scraggy', 567: 'archeops', 612: 'haxorus',
+    724: 'decidueye', 768: 'golisopod'
+  };
+
+  // Fuentes en cascada
+  const SPRITE_SHOWDOWN = id => {
+    const name = SHOWDOWN_NAMES[id];
+    return name
+      ? `https://play.pokemonshowdown.com/sprites/ani/${name}.gif`
+      : null;
+  };
+  const SPRITE_BW  = id =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`;
   const SPRITE_PNG = id =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-  const SPRITE_URL = id => SPRITE_GIF(id);
+
+  function SPRITE_URL(id) {
+    return SPRITE_SHOWDOWN(id) || SPRITE_BW(id);
+  }
+
+  function setSpriteWithFallback(imgEl, id) {
+    const showdown = SPRITE_SHOWDOWN(id);
+    const bw       = SPRITE_BW(id);
+    const png      = SPRITE_PNG(id);
+    if (showdown) {
+      imgEl.src = showdown;
+      imgEl.onerror = function() {
+        this.src = bw;
+        this.onerror = function() {
+          this.src = png;
+          this.onerror = null;
+        };
+      };
+    } else {
+      imgEl.src = bw;
+      imgEl.onerror = function() {
+        this.src = png;
+        this.onerror = null;
+      };
+    }
+  }
   const CRY_URL = id =>
     `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
 
@@ -1025,8 +1072,8 @@
             <span class="gc-card-gen">GEN ${p.generacion}</span>
           </div>
           <div class="gc-card-img">
-            <img src="${SPRITE_URL(p.id)}" alt="${p.nombre}"
-                 onerror="this.src=SPRITE_PNG(${p.id});this.onerror=null;"/>
+            <img data-id="${p.id}" alt="${p.nombre}"
+                 src="${SPRITE_URL(p.id)}"/>
             <div class="gc-sound">🔊</div>
           </div>
           <div class="gc-card-body">
@@ -1037,6 +1084,11 @@
           <div class="gc-region">${p.region || ''}</div>
         </div>`;
     }).join('');
+
+    // Aplicar fallback en cascada a cada sprite de card
+    grid.querySelectorAll('img[data-id]').forEach(img => {
+      setSpriteWithFallback(img, parseInt(img.dataset.id));
+    });
   }
 
   // ── Event listeners de filtros ──────────────
@@ -1291,8 +1343,7 @@
 
     // Rellenar modal
     document.getElementById('modalBarTitle').textContent = `INFO. POKÉMON — ${p.nombre.toUpperCase()}`;
-    document.getElementById('modalSprite').src = SPRITE_GIF(p.id);
-    document.getElementById('modalSprite').onerror = function() { this.src = SPRITE_PNG(p.id); this.onerror = null; };
+    setSpriteWithFallback(document.getElementById('modalSprite'), p.id);
     document.getElementById('modalSprite').alt = p.nombre;
     document.getElementById('modalNum').textContent = `NO.${String(p.id).padStart(3,'0')}`;
     document.getElementById('modalName').textContent = p.nombre;
