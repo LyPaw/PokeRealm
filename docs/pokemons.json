@@ -133,7 +133,7 @@
     "tipo": ["dragón", "tierra"],
     "generacion": 4,
     "region": "Sinnoh",
-    "ataques": ["Garra dragón", "Terremoto"],
+    "ataques": ["Garra Dragón", "Terremoto"],
     "stats": {"ps": 108, "ataque": 130, "defensa": 95, "atesp": 80, "defesp": 85, "velocidad": 102}
   },
   {
