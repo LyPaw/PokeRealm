@@ -99,7 +99,12 @@ PokemonProject/
 ---
 
 ## 👾 Pokémon disponibles
-![demo](https://raw.githubusercontent.com/LyPaw/PokeRealm/fcf1553396862e889fb2f1be15b6ad2e09bbe1a6/docs/spriteV/charizard.gif)
+![001](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/001.gif)
+![002](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/002.gif)
+![003](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/003.gif)
+![004](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/004.gif)
+![005](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/005.gif)
+![006](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/006.gif)
 
 
 > 🌐 Consulta la [Pokédex web](https://LyPaw.github.io/PokeRealm) para ver los datos.
