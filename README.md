@@ -134,6 +134,51 @@ Pon el movil en **horizontal**.
      <tr>
       <td>021</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/021.gif" width="50"/></td>
       <td>022</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/022.gif" width="100"/></td>
+      <td>023</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/023.gif" width="50"/></td>
+      <td>024</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/024.gif" width="100"/></td>
+      <td>025</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/025.gif" width="50"/></td>
+    </tr>
+     <tr>
+      <td>026</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/026.gif" width="50"/></td>
+      <td>027</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/027.gif" width="100"/></td>
+      <td>028</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/028.gif" width="50"/></td>
+      <td>029</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/029.gif" width="100"/></td>
+      <td>030</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/030.gif" width="50"/></td>
+    </tr>
+     <tr>
+      <td>031</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/031.gif" width="50"/></td>
+      <td>032</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/032.gif" width="100"/></td>
+      <td>033</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/033.gif" width="50"/></td>
+      <td>034</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/034.gif" width="100"/></td>
+      <td>035</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/035.gif" width="50"/></td>
+    </tr>
+     <tr>
+      <td>036</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/036.gif" width="50"/></td>
+      <td>037</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/037.gif" width="100"/></td>
+      <td>038</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/038.gif" width="50"/></td>
+      <td>039</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/039.gif" width="100"/></td>
+      <td>040</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/040.gif" width="50"/></td>
+    </tr>
+     <tr>
+      <td>041</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/041.gif" width="50"/></td>
+      <td>042</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/042.gif" width="100"/></td>
+      <td>043</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/043.gif" width="50"/></td>
+      <td>044</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/044.gif" width="100"/></td>
+      <td>045</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/045.gif" width="50"/></td>
+    </tr>
+     <tr>
+      <td>046</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/046.gif" width="50"/></td>
+      <td>047</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/047.gif" width="100"/></td>
+      <td>048</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/048.gif" width="50"/></td>
+      <td>049</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/049.gif" width="100"/></td>
+      <td>050</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/050.gif" width="50"/></td>
+    </tr>
+     <tr>
+      <td>051</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/051.gif" width="50"/></td>
+      <td>052</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/052.gif" width="100"/></td>
+      <td>053</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/053.gif" width="50"/></td>
+      <td>054</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/054.gif" width="100"/></td>
+      <td>055</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/055.gif" width="50"/></td>
     </tr>
   </tbody>
 </table>
