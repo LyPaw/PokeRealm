@@ -99,6 +99,7 @@ PokemonProject/
 ---
 
 ## Pokémon disponibles
+Pon el movil en **horizontal**.
 
 <table>
   <tbody>
@@ -113,7 +114,7 @@ PokemonProject/
       <td>006</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/006.gif" width="80"/></td>
       <td>007</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/007.gif" width="76"/></td>
       <td>008</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/008.gif" width="64"/></td>
-      <td>009</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/009.gif" width="85"/></td>
+      <td>009</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/009.gif" width="80"/></td>
       <td>010</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/010.gif" width="72"/></td>
     </tr>
     <tr>
