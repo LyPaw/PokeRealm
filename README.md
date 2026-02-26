@@ -99,28 +99,43 @@ PokemonProject/
 ---
 
 ## Pokémon disponibles
-![001](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/001.gif)
-![002](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/002.gif)
-![003](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/003.gif)
-![004](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/004.gif)
-![005](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/005.gif)
-![006](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/006.gif)
-![007](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/007.gif)
-![008](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/008.gif)
-![009](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/009.gif)
-![010](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/010.gif)
-![011](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/011.gif)
-![012](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/012.gif)
-![013](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/013.gif)
-![014](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/014.gif)
-![015](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/015.gif)
-![016](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/016.gif)
-![017](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/017.gif)
-![018](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/018.gif)
-![019](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/019.gif)
-![020](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/020.gif)
-![021](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/021.gif)
-![022](https://raw.githubusercontent.com/LyPaw/PokeRealm/main/docs/spriteV/022.gif)
+
+<table>
+  <tbody>
+    <tr>
+      <td>001</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/001.gif" width="64"/></td>
+      <td>002</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/002.gif" width="94"/></td>
+      <td>003</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/003.gif" width="94"/></td>
+      <td>004</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/004.gif" width="65"/></td>
+      <td>005</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/005.gif" width="64"/></td>   
+    </tr>
+    <tr>
+      <td>006</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/006.gif" width="80"/></td>
+      <td>007</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/007.gif" width="76"/></td>
+      <td>008</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/008.gif" width="64"/></td>
+      <td>009</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/009.gif" width="85"/></td>
+      <td>010</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/010.gif" width="72"/></td>
+    </tr>
+    <tr>
+      <td>011</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/011.gif" width="64"/></td>
+      <td>012</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/012.gif" width="85"/></td>
+      <td>013</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/013.gif" width="56"/></td>
+      <td>014</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/014.gif" width="50"/></td>
+      <td>015</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/015.gif" width="70"/></td>
+    </tr>
+    <tr>
+      <td>016</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/016.gif" width="64"/></td>
+      <td>017</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/017.gif" width="95"/></td>
+      <td>018</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/018.gif" width="95"/></td>
+      <td>019</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/019.gif" width="64"/></td>
+      <td>020</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/020.gif" width="94"/></td>
+    </tr>
+     <tr>
+      <td>021</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/021.gif" width="50"/></td>
+      <td>022</td><td><img src="https://raw.githubusercontent.com/LyPaw/PomeBall/main/docs/spriteV/022.gif" width="100"/></td>
+    </tr>
+  </tbody>
+</table>
 
 > 🌐 Consulta la [Pokédex web](https://LyPaw.github.io/PomeBall) para ver los datos.
 
