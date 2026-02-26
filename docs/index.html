@@ -338,6 +338,11 @@
     }
     .gc-card:hover .gc-card-img img { transform: scale(1.12); }
 
+    /* ── Charizard más grande en la card ── */
+    .gc-card[data-pkid="6"] .gc-card-img img {
+      width: 120px; height: 120px;
+    }
+
     .gc-sound {
       position: absolute; bottom: 4px; right: 6px;
       font-size: 0.65rem; opacity: 0; transition: opacity 0.2s;
@@ -563,6 +568,11 @@
       transition: transform 0.3s;
     }
     .modal-sprite:hover { transform: scale(1.07); }
+
+    /* ── Charizard más grande en el modal ── */
+    #modalSprite[data-pkid="6"] {
+      width: 210px; height: 210px;
+    }
 
     /* Tabla ficha */
     .modal-ficha { padding: 0.2rem 0; }
@@ -1151,7 +1161,7 @@
       ).join('');
 
       return `
-        <div class="gc-card" style="animation-delay:${i * 0.04}s" onclick="openModal(${p.id})">
+        <div class="gc-card" data-pkid="${p.id}" style="animation-delay:${i * 0.04}s" onclick="openModal(${p.id})">
           <div class="gc-card-bar">
             <span class="gc-card-num">NO.${String(p.id).padStart(3,'0')}</span>
             <span class="gc-card-gen">GEN ${p.generacion}</span>
@@ -1544,8 +1554,12 @@
     document.getElementById('modalShinyBtn').classList.remove('active');
     document.getElementById('modalSprite').closest('.modal-sprite-wrap').classList.remove('shiny');
     document.getElementById('modalShinyBtn').title = 'Ver shiny';
-    setSpriteWithFallback(document.getElementById('modalSprite'), p.id);
-    document.getElementById('modalSprite').alt = p.nombre;
+
+    const spriteEl = document.getElementById('modalSprite');
+    spriteEl.dataset.pkid = id;
+    setSpriteWithFallback(spriteEl, p.id);
+    spriteEl.alt = p.nombre;
+
     document.getElementById('modalNum').textContent = `NO.${String(p.id).padStart(3,'0')}`;
     document.getElementById('modalName').textContent = p.nombre;
     document.getElementById('modalNameNum').textContent = `NO.${String(p.id).padStart(3,'0')}`;
