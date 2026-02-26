@@ -769,6 +769,108 @@
       .modal-stats-panel { border-right: none; border-bottom: 2px solid var(--border); }
       .modal-sprite { width: 130px; height: 130px; object-fit: contain; }
     }
+
+    /* ══════════════════════════════════════════
+       SPRITE VIEWER
+    ══════════════════════════════════════════ */
+    .modal-sprite-hint {
+      font-family: 'Press Start 2P', monospace; font-size: 0.28rem;
+      color: var(--muted); letter-spacing: 0.06em;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .modal-sprite-wrap:hover .modal-sprite-hint { opacity: 1; }
+
+    .sv-overlay {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,0.95);
+      display: flex; justify-content: center; align-items: center;
+      padding: 1rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .sv-overlay.open { opacity: 1; pointer-events: all; }
+
+    .sv-box {
+      background: var(--bg);
+      border: 3px solid var(--accent);
+      width: 100%; max-width: 760px;
+      transform: scale(0.92);
+      transition: transform 0.22s cubic-bezier(.22,.68,0,1.2);
+      box-shadow: 0 0 0 1px var(--border-mid), 0 30px 80px rgba(0,0,0,0.9);
+    }
+    .sv-overlay.open .sv-box { transform: scale(1); }
+
+    .sv-bar {
+      background: var(--topbar-bg);
+      height: 48px; padding: 0 1rem 0 1.2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 3px solid var(--accent);
+    }
+    .sv-bar-left { display: flex; align-items: center; gap: 0.7rem; }
+    .sv-bar-title {
+      font-family: 'Press Start 2P', monospace; font-size: 0.55rem;
+      color: #fff; letter-spacing: 0.08em;
+    }
+
+    .sv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .sv-cell {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1.8rem 1rem 1.2rem;
+      border-right: 2px solid var(--border);
+      border-bottom: 2px solid var(--border);
+    }
+    .sv-cell:nth-child(2n) { border-right: none; }
+    .sv-cell:nth-child(3),
+    .sv-cell:nth-child(4) { border-bottom: none; }
+
+    .sv-cell-label {
+      font-family: 'Press Start 2P', monospace; font-size: 0.4rem;
+      color: var(--muted); letter-spacing: 0.08em;
+      margin-bottom: 1.2rem; text-align: center;
+    }
+    .sv-shiny-cell .sv-cell-label { color: goldenrod; }
+
+    .sv-img-wrap {
+      background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 65%);
+      border: 2px solid var(--border);
+      display: flex; justify-content: center; align-items: center;
+      width: 220px; height: 220px;
+      position: relative;
+    }
+    .sv-img-wrap-shiny {
+      background: radial-gradient(circle at center, rgba(255,215,0,0.15) 0%, transparent 65%);
+      border-color: rgba(255,215,0,0.3);
+    }
+
+    .sv-img {
+      width: 180px; height: 180px;
+      object-fit: contain;
+      image-rendering: pixelated; image-rendering: crisp-edges;
+      filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));
+      transition: transform 0.25s;
+    }
+    .sv-img:hover { transform: scale(1.1); }
+
+    .sv-footer {
+      height: 38px;
+      background: var(--card-top);
+      border-top: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.2rem;
+    }
+
+    @media (max-width: 600px) {
+      .sv-grid { grid-template-columns: 1fr; }
+      .sv-cell { border-right: none; }
+      .sv-cell:nth-child(3) { border-bottom: 2px solid var(--border); }
+      .sv-img-wrap { width: 160px; height: 160px; }
+      .sv-img { width: 130px; height: 130px; }
+    }
   </style>
 </head>
 <body>
@@ -878,7 +980,8 @@
       <!-- ═══ PANEL IZQUIERDO ═══ -->
       <div class="modal-left">
         <div class="modal-sprite-wrap">
-          <img class="modal-sprite" id="modalSprite" src="" alt=""/>
+          <img class="modal-sprite" id="modalSprite" src="" alt="" title="Ver galería de sprites" onclick="openSpriteViewer()" style="cursor:zoom-in"/>
+          <span class="modal-sprite-hint">[ CLIC PARA VER GALERÍA ]</span>
           <button class="modal-shiny-btn" id="modalShinyBtn" title="Ver shiny" onclick="toggleModalShiny()">✨ SHINY</button>
         </div>
         <div class="modal-ficha">
@@ -994,6 +1097,49 @@
     <a href="https://github.com/FranJFM" target="_blank">FranJFM</a>
   </div>
 </footer>
+
+<!-- ═══ SPRITE VIEWER OVERLAY ═══ -->
+<div class="sv-overlay" id="svOverlay" onclick="closeSVOutside(event)">
+  <div class="sv-box">
+    <div class="sv-bar">
+      <div class="sv-bar-left">
+        <div class="modal-bar-icon"></div>
+        <span class="sv-bar-title">GALERÍA DE SPRITES — <span id="svPokeName"></span></span>
+      </div>
+      <button class="modal-close" onclick="closeSpriteViewer()">✕ CERRAR</button>
+    </div>
+    <div class="sv-grid">
+      <div class="sv-cell">
+        <div class="sv-cell-label">NORMAL · FRENTE</div>
+        <div class="sv-img-wrap">
+          <img class="sv-img" id="svFront" src="" alt="Frente normal"/>
+        </div>
+      </div>
+      <div class="sv-cell">
+        <div class="sv-cell-label">NORMAL · ESPALDA</div>
+        <div class="sv-img-wrap">
+          <img class="sv-img" id="svBack" src="" alt="Espalda normal"/>
+        </div>
+      </div>
+      <div class="sv-cell sv-shiny-cell">
+        <div class="sv-cell-label">✨ SHINY · FRENTE</div>
+        <div class="sv-img-wrap sv-img-wrap-shiny">
+          <img class="sv-img" id="svShinyFront" src="" alt="Frente shiny"/>
+        </div>
+      </div>
+      <div class="sv-cell sv-shiny-cell">
+        <div class="sv-cell-label">✨ SHINY · ESPALDA</div>
+        <div class="sv-img-wrap sv-img-wrap-shiny">
+          <img class="sv-img" id="svShinyBack" src="" alt="Espalda shiny"/>
+        </div>
+      </div>
+    </div>
+    <div class="sv-footer">
+      <span class="modal-footer-hint">POMEBALL — SPRITE VIEWER v1.0</span>
+      <span class="modal-key">ESC CERRAR</span>
+    </div>
+  </div>
+</div>
 
 <script>
   // ── Theme toggle ─────────────────────────────
@@ -1635,8 +1781,53 @@
     if (e.target === document.getElementById('modalOverlay')) closeModal();
   }
 
+  // ── Sprite Viewer ─────────────────────────────
+  const SPRITE_BACK_NORMAL = id =>
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${id}.png`;
+  const SPRITE_BACK_SHINY = id =>
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/${id}.png`;
+
+  function openSpriteViewer() {
+    if (!currentModalId) return;
+    const p = allPokemons.find(x => x.id === currentModalId);
+    const id = currentModalId;
+
+    document.getElementById('svPokeName').textContent = p ? p.nombre.toUpperCase() : `#${id}`;
+
+    // Frente normal
+    const front = document.getElementById('svFront');
+    setSpriteWithFallback(front, id);
+
+    // Espalda normal
+    const back = document.getElementById('svBack');
+    back.src = SPRITE_BACK_NORMAL(id);
+    back.onerror = function() { this.src = SPRITE_PNG(id); this.onerror = null; };
+
+    // Frente shiny
+    const shinyFront = document.getElementById('svShinyFront');
+    setShinyWithFallback(shinyFront, id);
+
+    // Espalda shiny
+    const shinyBack = document.getElementById('svShinyBack');
+    shinyBack.src = SPRITE_BACK_SHINY(id);
+    shinyBack.onerror = function() { this.src = SPRITE_SHINY_PNG(id); this.onerror = null; };
+
+    document.getElementById('svOverlay').classList.add('open');
+  }
+
+  function closeSpriteViewer() {
+    document.getElementById('svOverlay').classList.remove('open');
+  }
+
+  function closeSVOutside(e) {
+    if (e.target === document.getElementById('svOverlay')) closeSpriteViewer();
+  }
+
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape') {
+      closeSpriteViewer();
+      closeModal();
+    }
   });
 
   loadPokemons();
