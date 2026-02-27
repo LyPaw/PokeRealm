@@ -780,6 +780,39 @@
     }
     .modal-sprite-wrap:hover .modal-sprite-hint { opacity: 1; }
 
+    /* ── Pokeball loader ── */
+    .pk-loader {
+      position: absolute;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.6rem;
+      pointer-events: none;
+      opacity: 0; transition: opacity 0.15s;
+    }
+    .pk-loader.visible { opacity: 1; }
+    .pk-loader-ball {
+      width: 48px; height: 48px;
+      animation: pkSpin 0.9s linear infinite;
+    }
+    .pk-loader-txt {
+      font-family: 'Press Start 2P', monospace; font-size: 0.3rem;
+      color: var(--muted); letter-spacing: 0.1em;
+      animation: pkBlink 0.9s ease infinite alternate;
+    }
+    @keyframes pkSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes pkBlink {
+      from { opacity: 0.3; }
+      to   { opacity: 1; }
+    }
+
+    /* Ocultar sprite mientras carga */
+    .modal-sprite.loading { opacity: 0; }
+    .modal-sprite { transition: opacity 0.2s; }
+    .sv-img.loading { opacity: 0; }
+    .sv-img { transition: opacity 0.2s; }
+
     .sv-overlay {
       position: fixed; inset: 0; z-index: 1100;
       background: rgba(0,0,0,0.95);
@@ -983,6 +1016,17 @@
       <div class="modal-left">
         <div class="modal-sprite-wrap">
           <img class="modal-sprite" id="modalSprite" src="" alt="" title="Ver galería de sprites" onclick="openSpriteViewer()" style="cursor:zoom-in"/>
+          <div class="pk-loader" id="modalLoader">
+            <svg class="pk-loader-ball" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="none" stroke="var(--border)" stroke-width="4"/>
+              <path d="M2,50 A48,48 0 0,1 98,50" fill="#CC0000"/>
+              <path d="M2,50 A48,48 0 0,0 98,50" fill="#ffffff"/>
+              <rect x="2" y="47" width="96" height="6" fill="#222"/>
+              <circle cx="50" cy="50" r="12" fill="#222" stroke="#222" stroke-width="2"/>
+              <circle cx="50" cy="50" r="7" fill="var(--bg)" stroke="var(--border)" stroke-width="2"/>
+            </svg>
+            <span class="pk-loader-txt">CARGANDO...</span>
+          </div>
           <span class="modal-sprite-hint">[ CLIC PARA VER GALERÍA ]</span>
           <button class="modal-shiny-btn" id="modalShinyBtn" title="Ver shiny" onclick="toggleModalShiny()">✨ SHINY</button>
         </div>
@@ -1113,14 +1157,36 @@
     <div class="sv-grid">
       <div class="sv-cell">
         <div class="sv-cell-label">NORMAL</div>
-        <div class="sv-img-wrap sv-img-wrap-lg">
-          <img class="sv-img sv-img-lg" id="svFront" src="" alt="Frente normal"/>
+        <div class="sv-img-wrap sv-img-wrap-lg" style="position:relative">
+          <div class="pk-loader visible" id="svFrontLoader">
+            <svg class="pk-loader-ball" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="none" stroke="var(--border)" stroke-width="4"/>
+              <path d="M2,50 A48,48 0 0,1 98,50" fill="#CC0000"/>
+              <path d="M2,50 A48,48 0 0,0 98,50" fill="#ffffff"/>
+              <rect x="2" y="47" width="96" height="6" fill="#222"/>
+              <circle cx="50" cy="50" r="12" fill="#222" stroke="#222" stroke-width="2"/>
+              <circle cx="50" cy="50" r="7" fill="var(--bg)" stroke="var(--border)" stroke-width="2"/>
+            </svg>
+            <span class="pk-loader-txt">CARGANDO...</span>
+          </div>
+          <img class="sv-img sv-img-lg loading" id="svFront" src="" alt="Frente normal"/>
         </div>
       </div>
       <div class="sv-cell sv-shiny-cell">
         <div class="sv-cell-label">✨ SHINY</div>
-        <div class="sv-img-wrap sv-img-wrap-shiny sv-img-wrap-lg">
-          <img class="sv-img sv-img-lg" id="svShinyFront" src="" alt="Frente shiny"/>
+        <div class="sv-img-wrap sv-img-wrap-shiny sv-img-wrap-lg" style="position:relative">
+          <div class="pk-loader visible" id="svShinyLoader">
+            <svg class="pk-loader-ball" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(255,215,0,0.4)" stroke-width="4"/>
+              <path d="M2,50 A48,48 0 0,1 98,50" fill="goldenrod"/>
+              <path d="M2,50 A48,48 0 0,0 98,50" fill="#fffbe6"/>
+              <rect x="2" y="47" width="96" height="6" fill="#222"/>
+              <circle cx="50" cy="50" r="12" fill="#222" stroke="#222" stroke-width="2"/>
+              <circle cx="50" cy="50" r="7" fill="var(--bg)" stroke="rgba(255,215,0,0.5)" stroke-width="2"/>
+            </svg>
+            <span class="pk-loader-txt" style="color:goldenrod">CARGANDO...</span>
+          </div>
+          <img class="sv-img sv-img-lg loading" id="svShinyFront" src="" alt="Frente shiny"/>
         </div>
       </div>
     </div>
@@ -1176,8 +1242,16 @@
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 
   // setSpriteWithFallback: Showdown → BW animated → PNG estático
-  function setSpriteWithFallback(imgEl, id, nombre) {
+  function setSpriteWithFallback(imgEl, id, nombre, loaderEl) {
     const pokeName = nombre || imgEl.alt || String(id);
+    if (loaderEl) loaderEl.classList.add('visible');
+    imgEl.classList.add('loading');
+    const onLoaded = () => {
+      imgEl.classList.remove('loading');
+      if (loaderEl) loaderEl.classList.remove('visible');
+      imgEl.onload = null;
+    };
+    imgEl.onload = onLoaded;
     imgEl.src = SPRITE_SHOWDOWN(pokeName);
     imgEl.onerror = function () {
       this.onerror = null;
@@ -1200,8 +1274,16 @@
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`;
 
   // setShinyWithFallback: Showdown shiny → BW shiny → PNG shiny estático
-  function setShinyWithFallback(imgEl, id, nombre) {
+  function setShinyWithFallback(imgEl, id, nombre, loaderEl) {
     const pokeName = nombre || imgEl.alt || String(id);
+    if (loaderEl) loaderEl.classList.add('visible');
+    imgEl.classList.add('loading');
+    const onLoaded = () => {
+      imgEl.classList.remove('loading');
+      if (loaderEl) loaderEl.classList.remove('visible');
+      imgEl.onload = null;
+    };
+    imgEl.onload = onLoaded;
     imgEl.src = SPRITE_SHINY_SD(pokeName);
     imgEl.onerror = function () {
       this.onerror = null;
@@ -1460,6 +1542,7 @@
     document.getElementById('modalBarTitle').textContent = `INFO. POKÉMON — ${p.nombre.toUpperCase()}`;
     modalIsShiny = false;
     document.getElementById('modalShinyBtn').classList.remove('active');
+    document.getElementById('modalLoader').classList.add('visible');
     document.getElementById('modalSprite').closest('.modal-sprite-wrap').classList.remove('shiny');
     document.getElementById('modalShinyBtn').title = 'Ver shiny';
 
@@ -1475,7 +1558,7 @@
       spriteEl.style.width  = '170px';
       spriteEl.style.height = '170px';
     }
-    setSpriteWithFallback(spriteEl, p.id, p.nombre);
+    setSpriteWithFallback(spriteEl, p.id, p.nombre, document.getElementById('modalLoader'));
 
     document.getElementById('modalNum').textContent = `NO.${String(p.id).padStart(3,'0')}`;
     document.getElementById('modalName').textContent = p.nombre;
@@ -1533,12 +1616,12 @@
       btn.classList.add('active');
       wrap.classList.add('shiny');
       btn.title = 'Ver normal';
-      setShinyWithFallback(img, currentModalId, currentModalName);
+      setShinyWithFallback(img, currentModalId, currentModalName, document.getElementById('modalLoader'));
     } else {
       btn.classList.remove('active');
       wrap.classList.remove('shiny');
       btn.title = 'Ver shiny';
-      setSpriteWithFallback(img, currentModalId, currentModalName);
+      setSpriteWithFallback(img, currentModalId, currentModalName, document.getElementById('modalLoader'));
     }
   }
 
@@ -1561,8 +1644,8 @@
 
     document.getElementById('svPokeName').textContent = p ? p.nombre.toUpperCase() : `#${id}`;
 
-    setSpriteWithFallback(document.getElementById('svFront'), id, p ? p.nombre : '');
-    setShinyWithFallback(document.getElementById('svShinyFront'), id, p ? p.nombre : '');
+    setSpriteWithFallback(document.getElementById('svFront'), id, p ? p.nombre : '', document.getElementById('svFrontLoader'));
+    setShinyWithFallback(document.getElementById('svShinyFront'), id, p ? p.nombre : '', document.getElementById('svShinyLoader'));
 
     document.getElementById('svOverlay').classList.add('open');
   }
