@@ -1147,85 +1147,91 @@
     if (saved === 'dark') document.getElementById('themeToggle').textContent = '◑ TEMA';
   }
 
-  // ── Mapa id → nombre Showdown ────────────────
-  const SHOWDOWN_NAMES = {
-    1: 'bulbasaur', 4: 'charmander', 6: 'charizard',
-    7: 'squirtle', 8: 'wartortle', 94: 'gengar',
-    132: 'ditto', 133: 'eevee',
-    252: 'treecko', 255: 'torchic', 258: 'mudkip',
-    289: 'slaking', 306: 'aggron',
-    399: 'bidoof', 445: 'garchomp',
-    495: 'snivy', 498: 'tepig', 501: 'oshawott',
-    559: 'scraggy', 567: 'archeops', 612: 'haxorus',
-    724: 'decidueye', 768: 'golisopod'
-  };
+  // ── Convierte nombre de Pokémon a slug de Pokémon Showdown ──────────────
+  // Ej: "Bulbasaur" → "bulbasaur"
+  //     "Farfetch'd" → "farfetchd"
+  //     "Nidoran♀"  → "nidoranf"
+  //     "Mr. Mime"   → "mrmime"
+  //     "Flabébé"    → "flabebe"
+  //     "Porygon-Z"  → "porygonz"
+  function toShowdownName(nombre) {
+    return nombre
+      .toLowerCase()
+      .normalize('NFD')               // descompone caracteres con tilde (é → e + ́)
+      .replace(/[\u0300-\u036f]/g, '') // elimina los diacríticos (tildes, etc.)
+      .replace(/♀/g, 'f')             // símbolo femenino → f
+      .replace(/♂/g, 'm')             // símbolo masculino → m
+      .replace(/[^a-z0-9]/g, '');     // elimina todo lo que no sea letra/número
+  }
 
-  // ── Sprites normales en cascada ───────────────
-  const SPRITE_SHOWDOWN = id => {
-    const n = SHOWDOWN_NAMES[id];
-    return n ? `https://play.pokemonshowdown.com/sprites/ani/${n}.gif` : null;
-  };
-  const SPRITE_BW  = id =>
+  // ── URLs de sprites normales ─────────────────────────────────────────────
+  // Prioridad: Showdown animated GIF → BW animated GIF → PNG estático
+  const SPRITE_SHOWDOWN = nombre =>
+    `https://play.pokemonshowdown.com/sprites/ani/${toShowdownName(nombre)}.gif`;
+
+  const SPRITE_BW = id =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`;
+
   const SPRITE_PNG = id =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 
-  function SPRITE_URL(id) { return SPRITE_SHOWDOWN(id) || SPRITE_BW(id); }
-
-  function setSpriteWithFallback(imgEl, id) {
-    const sd = SPRITE_SHOWDOWN(id), bw = SPRITE_BW(id), png = SPRITE_PNG(id);
-    if (sd) {
-      imgEl.src = sd;
-      imgEl.onerror = function() {
-        this.src = bw;
-        this.onerror = function() { this.src = png; this.onerror = null; };
+  // setSpriteWithFallback: Showdown → BW animated → PNG estático
+  function setSpriteWithFallback(imgEl, id, nombre) {
+    const pokeName = nombre || imgEl.alt || String(id);
+    imgEl.src = SPRITE_SHOWDOWN(pokeName);
+    imgEl.onerror = function () {
+      this.onerror = null;
+      this.src = SPRITE_BW(id);
+      this.onerror = function () {
+        this.onerror = null;
+        this.src = SPRITE_PNG(id);
       };
-    } else {
-      imgEl.src = bw;
-      imgEl.onerror = function() { this.src = png; this.onerror = null; };
-    }
+    };
   }
 
-  // ── Sprites shiny en cascada ──────────────────
-  const SPRITE_SHINY_SD  = id => {
-    const n = SHOWDOWN_NAMES[id];
-    return n ? `https://play.pokemonshowdown.com/sprites/ani-shiny/${n}.gif` : null;
-  };
-  const SPRITE_SHINY_BW  = id =>
+  // ── URLs de sprites shiny ────────────────────────────────────────────────
+  const SPRITE_SHINY_SD = nombre =>
+    `https://play.pokemonshowdown.com/sprites/ani-shiny/${toShowdownName(nombre)}.gif`;
+
+  const SPRITE_SHINY_BW = id =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/shiny/${id}.gif`;
+
   const SPRITE_SHINY_PNG = id =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`;
 
-  function setShinyWithFallback(imgEl, id) {
-    const sd = SPRITE_SHINY_SD(id), bw = SPRITE_SHINY_BW(id), png = SPRITE_SHINY_PNG(id);
-    if (sd) {
-      imgEl.src = sd;
-      imgEl.onerror = function() {
-        this.src = bw;
-        this.onerror = function() { this.src = png; this.onerror = null; };
+  // setShinyWithFallback: Showdown shiny → BW shiny → PNG shiny estático
+  function setShinyWithFallback(imgEl, id, nombre) {
+    const pokeName = nombre || imgEl.alt || String(id);
+    imgEl.src = SPRITE_SHINY_SD(pokeName);
+    imgEl.onerror = function () {
+      this.onerror = null;
+      this.src = SPRITE_SHINY_BW(id);
+      this.onerror = function () {
+        this.onerror = null;
+        this.src = SPRITE_SHINY_PNG(id);
       };
-    } else {
-      imgEl.src = bw;
-      imgEl.onerror = function() { this.src = png; this.onerror = null; };
-    }
+    };
   }
 
-  function toggleShiny(btn, id) {
-    const card  = btn.closest('.gc-card');
-    const img   = card.querySelector('img[data-id]');
+  // ── Toggle shiny en card ─────────────────────
+  function toggleShiny(btn, id, nombre) {
+    const card    = btn.closest('.gc-card');
+    const img     = card.querySelector('img[data-id]');
     const isShiny = btn.classList.contains('active');
     if (isShiny) {
       btn.classList.remove('active');
       card.classList.remove('shiny');
       btn.title = 'Ver shiny';
-      setSpriteWithFallback(img, id);
+      setSpriteWithFallback(img, id, nombre);
     } else {
       btn.classList.add('active');
       card.classList.add('shiny');
       btn.title = 'Ver normal';
-      setShinyWithFallback(img, id);
+      setShinyWithFallback(img, id, nombre);
     }
   }
+
+  // ── Sonido ───────────────────────────────────
   const CRY_URL = id =>
     `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
 
@@ -1302,6 +1308,9 @@
         `<span class="gc-ataque">${a}</span>`
       ).join('');
 
+      // nombre escapado para uso seguro en atributo onclick
+      const nombreEscaped = p.nombre.replace(/'/g, "\\'");
+
       return `
         <div class="gc-card" data-pkid="${p.id}" style="animation-delay:${i * 0.04}s" onclick="openModal(${p.id})">
           <div class="gc-card-bar">
@@ -1309,8 +1318,8 @@
             <span class="gc-card-gen">GEN ${p.generacion}</span>
           </div>
           <div class="gc-card-img">
-            <img data-id="${p.id}" alt="${p.nombre}" src=""/>
-            <button class="gc-shiny-btn" title="Ver shiny" onclick="event.stopPropagation();toggleShiny(this,${p.id})">✨</button>
+            <img data-id="${p.id}" data-nombre="${p.nombre}" alt="${p.nombre}" src=""/>
+            <button class="gc-shiny-btn" title="Ver shiny" onclick="event.stopPropagation();toggleShiny(this,${p.id},'${nombreEscaped}')">✨</button>
             <div class="gc-sound">🔊</div>
           </div>
           <div class="gc-card-body">
@@ -1322,8 +1331,11 @@
         </div>`;
     }).join('');
 
+    // Cargar sprites de Showdown para todos los Pokémon del grid
     grid.querySelectorAll('img[data-id]').forEach(img => {
-      setSpriteWithFallback(img, parseInt(img.dataset.id));
+      const id     = parseInt(img.dataset.id);
+      const nombre = img.dataset.nombre || img.alt;
+      setSpriteWithFallback(img, id, nombre);
     });
   }
 
@@ -1421,12 +1433,14 @@
   }
 
   // ── Modal ─────────────────────────────────────
-  let currentModalId = null;
+  let currentModalId   = null;
+  let currentModalName = null;
 
   function openModal(id) {
     const p = allPokemons.find(x => x.id === id);
     if (!p) return;
-    currentModalId = id;
+    currentModalId   = id;
+    currentModalName = p.nombre;
 
     if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
     const audio = new Audio(CRY_URL(id));
@@ -1441,8 +1455,8 @@
 
     const spriteEl = document.getElementById('modalSprite');
     spriteEl.dataset.pkid = id;
-    setSpriteWithFallback(spriteEl, p.id);
     spriteEl.alt = p.nombre;
+    setSpriteWithFallback(spriteEl, p.id, p.nombre);
 
     document.getElementById('modalNum').textContent = `NO.${String(p.id).padStart(3,'0')}`;
     document.getElementById('modalName').textContent = p.nombre;
@@ -1500,19 +1514,20 @@
       btn.classList.add('active');
       wrap.classList.add('shiny');
       btn.title = 'Ver normal';
-      setShinyWithFallback(img, currentModalId);
+      setShinyWithFallback(img, currentModalId, currentModalName);
     } else {
       btn.classList.remove('active');
       wrap.classList.remove('shiny');
       btn.title = 'Ver shiny';
-      setSpriteWithFallback(img, currentModalId);
+      setSpriteWithFallback(img, currentModalId, currentModalName);
     }
   }
 
   function closeModal() {
     document.getElementById('modalOverlay').classList.remove('open');
     document.body.style.overflow = '';
-    currentModalId = null;
+    currentModalId   = null;
+    currentModalName = null;
   }
 
   function closeModalOutside(e) {
@@ -1527,8 +1542,8 @@
 
     document.getElementById('svPokeName').textContent = p ? p.nombre.toUpperCase() : `#${id}`;
 
-    setSpriteWithFallback(document.getElementById('svFront'), id);
-    setShinyWithFallback(document.getElementById('svShinyFront'), id);
+    setSpriteWithFallback(document.getElementById('svFront'), id, p ? p.nombre : '');
+    setShinyWithFallback(document.getElementById('svShinyFront'), id, p ? p.nombre : '');
 
     document.getElementById('svOverlay').classList.add('open');
   }
